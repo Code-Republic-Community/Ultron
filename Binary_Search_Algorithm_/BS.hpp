@@ -1,5 +1,5 @@
 template<typename T>
-int BinarySearch(T* arr, int size, T value)
+int BinarySearch(T* arr, int size, T value) // for a simple array
 {
     int zero = 0;
     int new_size = size;
@@ -40,7 +40,7 @@ iterator add(iterator it, int value)
     return it;
 }
 template<typename iterator, typename T>
-iterator BinarySearch(iterator begin, iterator end, T value, std::forward_iterator_tag)
+iterator BinarySearch(iterator begin, iterator end, T value, std::forward_iterator_tag) // the list iterator performs this function:
 {
     int half = size(begin, end);
     int new_half = half;
@@ -74,7 +74,7 @@ iterator BinarySearch(iterator begin, iterator end, T value, std::forward_iterat
     return --return_end;
 }
 template<typename iterator, typename T>
-iterator BinarySearch(iterator begin, iterator end, T value, std::random_access_iterator_tag)
+iterator BinarySearch(iterator begin, iterator end, T value, std::random_access_iterator_tag) // the vector iterator performs this function:
 {
     int half = (end - begin) / 2;
     iterator return_end = end;
@@ -103,4 +103,3 @@ IteratorType Binary_Search(IteratorType start, IteratorType end, T value)
 {
 	return BinarySearch(start, end,value, typename std::iterator_traits<IteratorType>::iterator_category());
 }
-
