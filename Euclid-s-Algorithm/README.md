@@ -6,4 +6,4 @@ Euclid's algorithm, is an efficient method for computing the greatest common div
 <h3>For example See this image</h3>
 
 
-![11](https://user-images.githubusercontent.com/58858618/175555393-ea37edac-18ae-4640-b462-f02509dfb5e1.jpg)
+![111](https://user-images.githubusercontent.com/58858618/175556239-ee921f35-224c-459b-b5c4-bd19109102f7.jpg)
