@@ -42,7 +42,6 @@ BST<T> BST<T>::merge(BST<T> ob)
     merge_function(root, ob.root);
     return *this;
 }
-
 template<typename T>
 BST<T>::~BST()
 {
@@ -93,16 +92,14 @@ std::ostream& operator<<(std::ostream& output, BST<T>& obj)
     output << std::endl;
     return output;
 }
-
 template<typename T>
 void BST<T>::levelorder()
 {
     int height = get__height(root);
     for(int i = 0; i < height; ++i) {
-     row(root,i);
+        row(root,i);
     }
 }
-
 template<typename T>
 void BST<T>::inorder()
 {
@@ -110,7 +107,6 @@ void BST<T>::inorder()
     vector_print();
     print_vector.clear();
 }
-
 template<typename T>
 void BST<T>::preorder()
 {
@@ -118,7 +114,6 @@ void BST<T>::preorder()
     vector_print();
     print_vector.clear();
 }
-
 template<typename T>
 void BST<T>::postorder()
 {
@@ -126,23 +121,20 @@ void BST<T>::postorder()
     vector_print();
     print_vector.clear();
 }
-
 template<typename T>
 void BST<T>::insert(T value)
-{
+{   
     if(value < 0) {
         return;
     }
     push(root,value);
 }
-
 template<typename T>
 void BST<T>::clear()
 {
     delete_root(root);
     root = nullptr;
 }
-
 template<typename T>
 void BST<T>::erase(T val)
 {
@@ -150,7 +142,6 @@ void BST<T>::erase(T val)
     root = nullptr;
     erase_itr(val,root);
 }
-
 template<typename T>
 bool BST<T>::find_function(node<T>* root, T value, T*& finD)
 {
@@ -166,15 +157,12 @@ bool BST<T>::find_function(node<T>* root, T value, T*& finD)
     find_function(root->m_right, value, finD);
     return flag;
 }
-
 template<typename T>
 void BST<T>::row(node<T>* root, int value)
 {
-    bool b = 2;
     if(root == nullptr) {
         return;
     }
-    
     if(value == 0) {
         std::cout << root->m_item << " ";
         return;
@@ -184,7 +172,6 @@ void BST<T>::row(node<T>* root, int value)
         row(root->m_right,value - 1);
     }
 }
-
 template<typename T>
 bool BST<T>::contains_function(node<T>* obj, T value)
 {
@@ -198,7 +185,6 @@ bool BST<T>::contains_function(node<T>* obj, T value)
     contains_function(obj->m_right, value);
     return flag;
 }
-
 template<typename T>
 void BST<T>::merge_function(node<T>* obj1, node<T>* obj2)
 {
@@ -209,7 +195,6 @@ void BST<T>::merge_function(node<T>* obj1, node<T>* obj2)
     merge_function(obj1, obj2->m_left);
     merge_function(obj1, obj2->m_right);
 }
-
 template<typename T>
 void BST<T>::number_of_nodes(node<T>* obj)
 {
@@ -220,7 +205,6 @@ void BST<T>::number_of_nodes(node<T>* obj)
     number_of_nodes(obj->m_left);
     number_of_nodes(obj->m_right);
 }
-
 template<typename T>
 int BST<T>::get__height(node<T>* height)
 {
@@ -234,7 +218,6 @@ int BST<T>::get__height(node<T>* height)
     }
         return sum + 1;
 }
-
 template<typename T>
 void BST<T>::print_root(node<T>* obj, int value)
 {
@@ -253,7 +236,6 @@ void BST<T>::print_root(node<T>* obj, int value)
         print_vector.push_back(obj->m_item);
     }
 }
-
 template<typename T>
 void BST<T>::erase_itr(T value, node<T>* root)
 {
@@ -263,7 +245,6 @@ void BST<T>::erase_itr(T value, node<T>* root)
         }
     }
 }
-
 template<typename T>
 void BST<T>::erase_value(node<T>* obj)
 {
@@ -276,7 +257,6 @@ void BST<T>::erase_value(node<T>* obj)
     delete obj;
     obj = nullptr;
 }
-
 template<typename T>
 bool BST<T>::bool_equal(node<T>*& obj1, node<T>*& obj2)
 {
@@ -312,7 +292,6 @@ void BST<T>::pushvector(const node<T>* add, std::vector<T>& outitem)
     pushvector(add->m_left, outitem);
     pushvector(add->m_right, outitem);
 }
-
 template<typename T>
 void BST<T>::amount(node<T>* add1, node<T>* add2, node<T>*& add, std::vector<T>& outitem)
 {
@@ -331,7 +310,6 @@ void BST<T>::amount(node<T>* add1, node<T>* add2, node<T>*& add, std::vector<T>&
     amount(add1->m_left, add2->m_left, add->m_left, outitem);
     amount(add1->m_right, add2->m_right, add->m_right, outitem);
 }
-
 template<typename T>
 void BST<T>::delete_root(node<T>* droot)
 {
@@ -343,7 +321,6 @@ void BST<T>::delete_root(node<T>* droot)
     delete droot;
     droot = nullptr;
 }
-
 template<typename T>
 void BST<T>::copy(node<T>*& root, node<T>* croot)
 {
@@ -355,7 +332,6 @@ void BST<T>::copy(node<T>*& root, node<T>* croot)
     copy(root->m_left, croot->m_left);
     copy(root->m_right, croot->m_right);
 }
-
 template<typename T>
 void BST<T>::push(node<T>*& root, T value)
 {
@@ -370,7 +346,6 @@ void BST<T>::push(node<T>*& root, T value)
         push(root->m_right, value);
     }
 }
-
 template<typename T>
 void BST<T>::vector_print()
 {
@@ -378,21 +353,18 @@ void BST<T>::vector_print()
         std::cout << *it << " " ;
     }
 }
-
 template<typename T>
 T BST<T>::get_height()
 {
     T height_value = get__height(root);
     return height_value;
 }
-
 template<typename T>
 void BST<T>::get_number_of_nodes()
 {
     number_of_nodes(root);
     std::cout << number_nodes <<std::endl;
 }
-
 template<typename T>
 T BST<T>::get_root_data()
 {
@@ -401,7 +373,6 @@ T BST<T>::get_root_data()
     }
     return root->m_item;
 }
-
 template<typename T>
 bool BST<T>::contains(T value)
 {
@@ -410,7 +381,6 @@ bool BST<T>::contains(T value)
     }
     return false;
 }
-
 template<typename T>
 T* BST<T>::find(T value)
 {
@@ -422,7 +392,6 @@ T* BST<T>::find(T value)
     }
     return finD;
 }
-
 template<typename T>
 void BST<T>::add_value(node<T>* item, T value, node<T>*& new_item)
 {
@@ -433,4 +402,3 @@ void BST<T>::add_value(node<T>* item, T value, node<T>*& new_item)
     add_value(item->m_left, value, new_item->m_left);
     add_value(item->m_right, value, new_item->m_right);
 }
-
