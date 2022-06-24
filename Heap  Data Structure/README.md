@@ -37,7 +37,7 @@
 
 <hr>
 
-The elements in the data structure are T type (template).
+<b><i>The elements in the data structure are T type (template).</i> </b>
 
 <h3>I have performed these functions։</h3>
 
