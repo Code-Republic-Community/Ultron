@@ -1,4 +1,3 @@
-#include <iostream>
 #include <algorithm>
 
 template <typename iterator>
@@ -24,8 +23,3 @@ void selection_sort(T* arr, int size) // implemented for a simple array
         arr[i] = my_swap;
     }
 }
-
-int main()
-{
-}
-
