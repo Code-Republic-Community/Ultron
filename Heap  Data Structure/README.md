@@ -39,26 +39,28 @@ Time complexity in big O notation
 
 The elements in the data structure are T type (template).
 
-I have performed these functions։
-insert () --- This function enters my values
+<h3>I have performed these functions։</h3>
+
+<b>insert ()  </b> --- This function enters my values
  
-height () --- This function shows the height of my heap
+<b>height ()  </b>--- This function shows the height of my heap
 
-parent () --- This function shows the value of my parent
+<b>parent ()  </b>--- This function shows the value of my parent
 
-max_heapify () --- This function sorts Max Heap and Min Heap
+<b>max_heapify ()  </b>--- This function sorts Max Heap and Min Heap
 
-delete_element ()  --- I pass a value to this function, if it finds a value, remove it and sort again, if it doesn't find the same value, it returns
+<b>delete_element () </b> --- I pass a value to this function, if it finds a value, remove it and sort again, if it doesn't find the same value, it returns
 
-extract_max_element () --- Returns the largest value in the case of Max heap and returns the significant value in the case of Min heap
+ 
+<b>extract_max_element ()  </b> --- Returns the largest value in the case of Max heap and returns the significant value in the case of Min heap
 
-left () --- Returns the left child nodes
+<b>left ()  </b>--- Returns the left child nodes
 
-right () --- Returns the left child nodes
+<b>right ()  </b> --- Returns the left child nodes
 
-linear_search () --- Passes the meaning of this function, if it finds the meaning, returns the index, if it does not return, returns -1
+<b>linear_search ()  </b> --- Passes the meaning of this function, if it finds the meaning, returns the index, if it does not return, returns -1
 
-void print()  --- Prints Max Heap or Min Heap։
+<b>void print()  </b> --- Prints Max Heap or Min Heap։
 
 Same functions for min_heap
 
@@ -68,34 +70,34 @@ And a few other helpful functions։
 <hr>
 
 
-I also made these constructors
+<h3>I also made these constructors</h3>
 
----Default constructor:
+<b>---Default constructor:  </b>
 
----Constructor with parameters (+std::initializer_list)
+<b>---Constructor with parameters (+std::initializer_list)  </b>
 
----Copy constructor:
+<b>---Copy constructor:  </b>
 
----Move constructor:
+<b>---Move constructor:  </b>
 
----Destructor:
+<b>---Destructor:  </b>
 
 <hr>
 
 
-I also made these operators
+<h3>I also made these operators</h3>
 
----Copy operator assignment =
+<b>---Copy operator assignment =  </b>
 
----Move operator assignment =
+<b>---Move operator assignment =  </b>
 
----Operator stream out (cout) <<
+<b>---Operator stream out (cout) <<  </b>
 
----Operator is equal to ==
+-<b>--Operator is equal to ==  </b>
 
----Operator not equal to !=
+<b>---Operator not equal to !=  </b>
 
----Operator +, +=
+ <b>---Operator +, +=  </b>
 
 
 <hr>
