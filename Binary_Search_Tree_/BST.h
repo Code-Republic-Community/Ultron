@@ -74,6 +74,5 @@ private:
     void push(node<T>*&, T); // this function adds value
     void vector_print(); // this function prints the values of the tree
 };
-
 #include "BST.hpp"
 #endif
