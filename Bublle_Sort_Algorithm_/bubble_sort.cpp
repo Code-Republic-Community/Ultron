@@ -1,5 +1,3 @@
-#include <iostream>
-template <typename iterator>
 void bubble_sort(iterator begin, iterator end)
 {
     iterator it = --end;
@@ -32,13 +30,3 @@ void bubble_sort(T* arr,int size)
         }
     }
 }
-int main()
-{
-    std::list<int> a = {5,77,2,66,7,555,1,76,98};
-    auto it = a.begin();
-    auto i = a.end();
-    bubble_sort(it,i);
-    for(auto m = a.begin();m != a.end();++m)
-        std::cout << *m << " ";
-}
-
