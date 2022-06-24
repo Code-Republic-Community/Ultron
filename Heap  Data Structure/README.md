@@ -16,7 +16,7 @@
 <hr>
 
 
-Time complexity in big O notation
+<b><i>Time complexity in big O notation</i> </b>
 <table>
   <tr>
     <th>Algorithm</th>
