@@ -22,6 +22,6 @@ Differences with Binary Search:
 
 The idea is to first find the smallest Fibonacci number that is greater than or equal to the length of the given array.
 
-This algorithm is implemented with Forward iterators .
+This algorithm is implemented with STL list container and Forward iterators .
 
 
