@@ -10,5 +10,6 @@
    
    This algorithm is implemented with forward iterators and provides work with almost STL containers.
    
-   file:///home/vahan/%D0%97%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8/insertion-sort.jpg
+   
   
+![insertion-sort](https://user-images.githubusercontent.com/104273108/175765861-7fb5c10f-6979-450b-b286-3b37cad9f867.jpg)
