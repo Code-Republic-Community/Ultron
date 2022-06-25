@@ -37,17 +37,6 @@ This algorithm is implemented with STL list container and Forward iterators .
 
 
 
-
-
-
-
-
-
-
-
-  
-
-
-
+![1](https://user-images.githubusercontent.com/104273108/175766520-bedb17c1-5fb0-44d7-94cf-561918451849.png)
 
 
