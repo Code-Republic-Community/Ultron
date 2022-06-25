@@ -44,4 +44,34 @@ It is also similar to an array but a gap is introduced in the array for handling
   *move_right ()
   
   *expand ()
+  
   *move_cursor_to ()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+![111](https://user-images.githubusercontent.com/104273108/175766601-de5e644c-a7d2-40a8-bcb8-3a5f1a72dba3.png)
+
+
+
+
+
+
+
+
+
+
+
+
