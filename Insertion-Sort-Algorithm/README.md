@@ -10,4 +10,5 @@
    
    This algorithm is implemented with forward iterators and provides work with almost STL containers.
    
-   ![insertionsort](https://user-images.githubusercontent.com/104273108/175765743-c7e0e250-8071-4b95-951d-fc9f488f0199.png)
+   file:///home/vahan/%D0%97%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8/insertionpass.png
+  
