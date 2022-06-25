@@ -9,6 +9,6 @@
    *Insertion sort is adaptive in nature, i.e. it is appropriate for data sets which are already partially sorted
    
    This algorithm is implemented with forward iterators and provides work with almost STL containers.
-   file:///home/vahan/%D0%97%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8/1_Tyd9a7fjF-zPUTModbU3VA.png
    
+   file:///home/vahan/%D0%97%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8/insertion-sort.jpg
   
