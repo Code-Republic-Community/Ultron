@@ -31,5 +31,23 @@ This algorithm is implemented with STL list container and Forward iterators .
 
 
 
-![BinarySearchfig 1](https://user-images.githubusercontent.com/104273108/175766138-d9ce54cc-9691-4b7b-8aa9-35fc01b2e45a.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
 
