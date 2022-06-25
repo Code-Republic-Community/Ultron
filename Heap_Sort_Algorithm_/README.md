@@ -4,7 +4,6 @@
 
 <h2> <b>  This is a Heap Sort Algorithm with recursive </b> </h2>
 
-![](https://github.com/Code-Republic-Community/Ultron/blob/main/Heap_Sort_Algorithm_/Heap_sort_example.gif)
 
 <hr>
 
