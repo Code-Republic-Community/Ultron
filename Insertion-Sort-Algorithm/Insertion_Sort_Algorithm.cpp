@@ -17,8 +17,8 @@ void sort(T1 it_first, T1 it_last)	// this sorts the elements of the array in as
             it_last--;
 	    i++;
 	}
-	    std::advance(it_last, i);
-	    it_first++;
+	std::advance(it_last, i);
+	it_first++;
     }
 }
 
