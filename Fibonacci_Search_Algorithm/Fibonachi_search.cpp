@@ -11,12 +11,12 @@ void sort(std::list<int>::iterator it_first, std::list<int>::iterator it_last)	/
 	{
             if (*it_first > *it_last)
 	        std::iter_swap(it_first, it_last);
-		it_last--;
-		i++;
-	    }
-	    std::advance(it_last, i);
-	    it_first++;
+	it_last--;
+	i++;
 	}
+    std::advance(it_last, i);
+    it_first++;
+    }
 }
 int fibonacci(int index_of_fibanachi)
 {
