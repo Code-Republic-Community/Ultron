@@ -31,19 +31,7 @@ MyGap_Buffer::MyGap_Buffer(const MyGap_Buffer &other)
         this->buffer[i] = other.buffer[i];
     }
 }
-MyGap_Buffer::MyGap_Buffer(MyGap_Buffer && other): gap_size
-{
-    other.gap_size
-}, gap_left
-{
-    other.gap_left
-}, gap_right
-{
-    other.gap_right
-}, buffer
-{
-    other.buffer
-}
+MyGap_Buffer::MyGap_Buffer(MyGap_Buffer && other): gap_size{other.gap_size}, gap_left{other.gap_left}, gap_right{other.gap_right}, buffer{other.buffer}
 {
     other.buffer = nullptr;
     other.gap_size = 0;
