@@ -43,10 +43,9 @@ MyGap_Buffer::~MyGap_Buffer()	//Destructor
     delete[] buffer;
     buffer = nullptr;
 }
-MyGap_Buffer &MyGap_Buffer::operator=(const MyGap_Buffer &other)
+MyGap_Buffer &MyGap_Buffer::operator=(const MyGap_Buffer &other) //Copy operator assignment =
 {
-   	//Copy operator assignment =
-    if (this == &other)
+   	if (this == &other)
     {
         return * this;
     }
@@ -212,15 +211,13 @@ void MyGap_Buffer::insert_string(std::string input, int position)
 }
 void MyGap_Buffer::insert_char(char input, int position)
 {
-    if (position != gap_left)
+    if (position != gap_left) //move the cursor to index
     {
-       	//move the cursor to index
-        move_cursor_to(position);
+       	move_cursor_to(position);
     }
-    if (gap_right == gap_left)
+    if (gap_right == gap_left) // If the gap is empty expend the buffer
     {
-       	// If the gap is empty expend the buffer
-        int exp_gap = gap_size;
+       	int exp_gap = gap_size;
         expand(exp_gap, position);
     }
     buffer[gap_left] = input;	// Insert the char in the gap and  move the gap
