@@ -4,7 +4,6 @@
 template<typename T>
 void swap(T &x, T &y);
 
-
 template<typename T>
 class MaxHeap
 {
@@ -41,8 +40,7 @@ public:
   if(sumequal.vec_heap.size() == vec_heap.size()){
    for(int i = 0; i < vec_heap.size();++i){
     this->vec_heap[i] += sumequal.vec_heap[i];
-    }
-    
+    }  
   }
      
   if(sumequal.vec_heap.size() < vec_heap.size())
@@ -58,10 +56,10 @@ public:
    for(int i = vec_heap.size();i < sumequal.vec_heap.size();++i) {
      insert(sumequal.vec_heap[i]);
       }
-   	}  
+    }  
       return *this;
   }; //sumequal operator
-    
+	
   MaxHeap operator+( const MaxHeap<T>& sum){
    MaxHeap <T> tmp;
   if(sum.vec_heap.size() > vec_heap.size()){
@@ -82,7 +80,7 @@ public:
      tmp.vec_heap.push_back(vec_heap[i] + sum.vec_heap[i]);
        }
      }
-           return tmp;
+ return tmp;
     };
    // sum operator
     
