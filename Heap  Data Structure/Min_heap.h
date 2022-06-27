@@ -1,17 +1,15 @@
 #ifndef Min_heap
 #define Min_heap
 
-
 template<typename T>
 void swap(T &x, T &y);
-
 
 template<typename T>
 class MinHeap
 {
 
 private:
-std::vector<T> vec_heap;
+    std::vector<T> vec_heap;
 public:
 
     MinHeap(); //default constructor
@@ -22,81 +20,67 @@ public:
 
   MinHeap& operator=(const MinHeap<T>& heap);///copy operator
   MinHeap& operator=( MinHeap<T>&& heap); // move operator
-
-   bool operator==(const MinHeap<T> equal){
-       if(vec_heap.size() != equal.vec_heap.size() ){
-           return false;
+ 
+bool operator==(const MinHeap<T> equal){
+   if(vec_heap.size() != equal.vec_heap.size() ){
+        return false;
+    }
+   for(int i = 0;  i < vec_heap.size();++i){
+      if(vec_heap[i] != equal.vec_heap[i])
+         return false;
        }
-       for(int i = 0;  i < vec_heap.size();++i){
-           if(vec_heap[i] != equal.vec_heap[i])
-           return false;
-       }
-       return true;
+     return true;
    }///equal operator
 
-  bool operator!=(const MinHeap<T> no_equal){
+ bool operator!=(const MinHeap<T> no_equal){
      return !(*this == no_equal);
   }//noequal operator
-
+	
   MinHeap operator+=(const MinHeap<T>  &sumequal){
-
-        if(sumequal.vec_heap.size() == vec_heap.size()){
-         for(int i = 0; i < vec_heap.size();++i){
+   if(sumequal.vec_heap.size() == vec_heap.size()){
+     for(int i = 0; i < vec_heap.size();++i){
         this->vec_heap[i] += sumequal.vec_heap[i];
-
             }
          }
-
-      if(sumequal.vec_heap.size() < vec_heap.size())
-      for(int i = 0; i < sumequal.vec_heap.size();++i){
+ if(sumequal.vec_heap.size() < vec_heap.size())
+   for(int i = 0; i < sumequal.vec_heap.size();++i){
       this->vec_heap[i] += sumequal.vec_heap[i];
-
         }
-
-
-        if(sumequal.vec_heap.size() > vec_heap.size()){
-        for(int i = 0; i < vec_heap.size();++i){
-
-      this->vec_heap[i] += sumequal.vec_heap[i];
+ if(sumequal.vec_heap.size() > vec_heap.size()){
+   for(int i = 0; i < vec_heap.size();++i){
+     this->vec_heap[i] += sumequal.vec_heap[i];
         }
        for(int i = vec_heap.size();i < sumequal.vec_heap.size();++i) {
-
             insert(sumequal.vec_heap[i]);
         }
-
-        }
-
+     }
       return *this;
   }; //sumequal operator
-
-  MinHeap operator+(const MinHeap<T>  &sum){
-     MinHeap <T> tmp;
-      if(sum.vec_heap.size() > vec_heap.size()){
-          for(int i = 0; i < sum.vec_heap.size();++i){
-          tmp.vec_heap.push_back(vec_heap[i] + sum.vec_heap[i]);
+MinHeap operator+(const MinHeap<T>  &sum){
+ MinHeap <T> tmp;
+  if(sum.vec_heap.size() > vec_heap.size()){
+    for(int i = 0; i < sum.vec_heap.size();++i){
+      tmp.vec_heap.push_back(vec_heap[i] + sum.vec_heap[i]);
          }
       }
-         if(sum.vec_heap.size() < vec_heap.size()){
-               for(int i = 0; i < sum.vec_heap.size();++i){
-          tmp.vec_heap.push_back(vec_heap[i] + sum.vec_heap[i]);
-
+  if(sum.vec_heap.size() < vec_heap.size()){
+    for(int i = 0; i < sum.vec_heap.size();++i){
+      tmp.vec_heap.push_back(vec_heap[i] + sum.vec_heap[i]);
          }
-
-          for(int i = sum.vec_heap.size();i < vec_heap.size();++i) {
-            tmp.vec_heap.push_back(vec_heap[i]);
+    for(int i = sum.vec_heap.size();i < vec_heap.size();++i) {
+      tmp.vec_heap.push_back(vec_heap[i]);
         }
-         }
-         if(sum.vec_heap.size() == vec_heap.size()){
-         for(int i = 0; i < vec_heap.size();++i){
-             tmp.vec_heap.push_back(vec_heap[i] + sum.vec_heap[i]);
-            }
-         }
+      }
+  if(sum.vec_heap.size() == vec_heap.size()){
+    for(int i = 0; i < vec_heap.size();++i){
+      tmp.vec_heap.push_back(vec_heap[i] + sum.vec_heap[i]);
+        }
+      }
       return tmp;
     };
    // sum operator
-
   friend std::ostream& operator<<(std::ostream& out ,MinHeap<T> &obj) {
-      for(int i = 0;i < obj.size();++i){
+    for(int i = 0;i < obj.size();++i){
       out << obj.vec_heap[i] << "  ";
       }
       return out;
