@@ -5,6 +5,12 @@
 #include <iostream>
 
 template <class T, std::size_t N>
+class Array;
+
+template <class T, std::size_t N>
+std::ostream& operator<<(std::ostream&, Array<T, N>&);
+
+template <class T, std::size_t N>
 class Array {
 public:
     class RandomAccessIterator {
@@ -91,7 +97,8 @@ public:
     Array<T, N>& operator=(Array<T, N>&&);  //move operator assignment
     Array<T, N>& operator+(const Array<T, N>&);
     Array<T, N>& operator+=(const Array<T, N>&);
-    friend std::ostream operator<<(std::ostream& out, const Array<T, N>&);
+    template <typename>
+    friend std::ostream operator<<(std::ostream& out, Array<T, N>&);
     T& operator[](int) const;
     bool operator<(const Array<T, N>&);
     bool operator<=(const Array<T, N>&);
