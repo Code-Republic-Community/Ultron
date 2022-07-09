@@ -300,7 +300,7 @@ Array<T, N>& Array<T, N>::operator=(Array<T, N>&& other_array) {
 template <typename T, std::size_t N>
 class Array;
 template <typename T, std::size_t N>
-std::ostream& operator<<(std::ostream& out, const Array<T, N>& other) {
+std::ostream& operator<<(std::ostream& out, Array<T, N>& other) {
 	for (auto it = other.begin(); it != other.end(); it++) {
 		out << *it;
 	}
