@@ -1,264 +1,112 @@
 #include <iostream>
 
-using namespace std;
-
-class node{
+template<typename T>
+class doubly_linked_list{
+private:
+  struct node{
+    node* prev;
+    node* next;
+    T value;
+    explicit node(T i) {
+        value = i;
+        prev = nullptr;
+        next = nullptr;
+    }
+  };
 public:
-  node* prev;
-  int data;
-  node* next;
-  explicit node(int value){
-    prev=nullptr;
-    data=value;
-    next=nullptr;
+  friend std::ostream& operator<<(std::ostream& out, doubly_linked_list<T> const *a){
+    node* temp=a->head;
+    while(temp!=nullptr){
+      out << temp->value <<" --> ";
+      temp = temp->next;
+    }
+    std::cout <<"NULL" <<std::endl;
+    return out;
   }
-  node(node* prev1, int value, node* next1){
-    prev=prev1;
-    data=value;
-    next=next1;
+  friend bool operator==(doubly_linked_list first, doubly_linked_list second){
+    if(first.size() != second.size()){
+      return false;
+    }
+    else{
+      node* tmp1 = first.head;
+      node* tmp2 = second.head;
+      while (tmp1->next != nullptr){
+        if(tmp1->value != tmp2->value){
+          return false;
+        }
+        tmp1 = tmp1->next;
+        tmp2 = tmp2->next;
+      }
+      return true;
+    }
   }
-  node(node &O1){
-    prev = O1.prev;
-    data = O1.data;
-    next = O1.next;
+  friend bool operator!=(doubly_linked_list first, doubly_linked_list second){
+    return !(first==second);
   }
-  ~node()= default;
+  explicit doubly_linked_list(T value){
+    head->value = value;
+    head->prev = nullptr;
+    head->next = nullptr;
+    tail = head;
+  }
+  doubly_linked_list(const doubly_linked_list &O1){
+    head = O1.head;
+    tail = O1.head;
+  }
+  ~doubly_linked_list() = default;
+
+  int size(){
+    node* temp = head;
+    int counter = 1;
+    if(temp == nullptr){
+      return 0;
+    }
+    while(temp->next != nullptr){
+      temp = temp->next;
+      counter++;
+    }
+    return(counter);
+  }
+  T front(){
+    return head->value;
+  }
+
+  T back(){
+    return tail->value;
+  }
+
+  void push_front(T value){
+    node* n = new node(value);
+    n->next = head;
+    if(head != nullptr){
+      head->prev = n;
+    }
+    head = n;
+  }
+
+  void push_back(int value)
+  {
+    if(head == nullptr){
+      push_front(value);
+      tail = head;
+      return;
+    }
+    node* n = new node(value);
+    tail->next = n;
+    n->prev = tail;
+    tail = n;
+  }
+
+  node* head;
+  node* tail;
 };
 
-ostream& operator<<(ostream& COUT, node *head){
-  node* temp=head;
-  while(temp!=nullptr){
-    COUT<<temp->data<<" --> ";
-    temp=temp->next;
-  }
-  cout<<"NULL"<<endl;
-  return COUT;
-}
 
-bool operator==(node& head1, node& head){
-  if((head1.next == head.next) && (head1.prev == head.prev) && (head1.data == head.data)){
-    return true;
-  }
-  return false;
-}
-bool operator!=(node& head1, node& head){
-  if((head1.next == head.next) && (head1.prev == head.prev) && (head1.data == head.data)){
-    return false;
-  }
-  return true;
-}
-bool operator>(node& head1, node& head){
-  if(head1.data > head.data){
-    return true;
-  }
-  return false;
-}
-bool operator>=(node& head1, node& head){
-  if(head1.data >= head.data){
-    return true;
-  }
-  return false;
-}
-bool operator<(node& head1, node& head){
-  if(head1.data < head.data){
-    return true;
-  }
-  return false;
-}
-bool operator<=(node& head1, node& head){
-  if(head1.data <= head.data){
-    return true;
-  }
-  return false;
-}
-void operator+(node& head1, node& head){
-  head1.next = &head;
-  head.prev = &head1;
-}
-
-void operator+=(node& head1, node& head){
-  head1.next = &head;
-  head.prev = &head1;
-}
-
-int front(node* head){
-  node* temp = head;
-  while(temp->prev != nullptr){
-    temp = temp->prev;
-  }
-  return(temp->data);
-}
-
-int back(node* head){
-  node* temp= head;
-  while(temp->next != nullptr){
-    temp = temp->next;
-  }
-  return(temp->data);
-}
-
-node* begin(node* head){
-  node* temp = head;
-  while(temp->prev != nullptr){
-    temp = temp->prev;
-  }
-  return(temp);
-}
-
-node* end(node* head){
-  node* temp= head;
-  while(temp->next != nullptr){
-    temp = temp->next;
-  }
-  return(temp);
-}
-
-int size(node* head){
-  node* temp = head;
-  int counter = 1;
-  if(temp == nullptr){
-    return 0;
-  }
-  while(temp->next != nullptr){
-    temp = temp->next;
-    counter++;
-  }
-  return(counter);
-}
-
-void push_front(node* &head, int value){
-  node* n = new node(value);
-  n->next=head;
-  if(head!=nullptr){
-    head->prev=n;
-  }
-  head=n;
-}
-
-bool empty(node* &head){
-  if(head == nullptr){
-    return true;
-  }
-  return false;
-}
-
-void push_back(node* &head, int value)
-{
-  if(head==nullptr){
-    push_front(head, value);
-    return;
-  }
-  node* n = new node(value);
-  node* temp=head;
-  while(temp->next!=nullptr){
-    temp=temp->next;
-  }
-  temp->next=n;
-  n->prev=temp;
-}
-
-void insert(node* &head, int index, int value){
-  if(size(head) < index){
-    push_back(head,value);
-  }
-  else if(index < 0){
-    push_front(head, value);
-  }
-  else{
-    node* temp=head;
-    int counter = 0;
-    while(counter < index){
-      counter++;
-      temp=temp->next;
-    }
-    node* n = new node(temp, value, temp->next);
-    temp->next = n;
-    (temp->next)->prev = n;
-  }
-}
-void clear(node* &head){
-  head = nullptr;
-}
-
-void resize(node* &head, int index){
-  node* tmp = head;
-  int counter = 0;
-  while(counter != index){
-    tmp = tmp->next;
-    counter++;
-  }
-  tmp->next = nullptr;
-  begin(tmp);
-  head = tmp;
-}
-
-void remove(node* &head, int index){
-  node* tmp = head;
-  int counter = 0;
-  while(counter != index){
-    tmp = tmp->next;
-    counter++;
-  }
-  if(tmp->prev != nullptr && tmp->next != nullptr) {
-    (tmp->prev)->next = tmp->next;
-    (tmp->next)->prev = tmp->prev;
-  }
-  else if(tmp->next != nullptr && tmp->prev == nullptr){
-    //TODO
-    (tmp->next)->prev = nullptr;
-  }
-  else{
-    (tmp->prev)->next = nullptr;
-  }
-}
-
-void emplace(node* &head, int index1, int index2){
-  node* tmp = head;
-  int value1 = 0;
-  int value2 = 0;
-  int counter = 0;
-  while((tmp->next) != nullptr){
-    if(counter == index1){
-      value1 = tmp->data;
-    }
-    else if(counter == index2){
-      value2 = tmp->data;
-    }
-    else if(counter > index2 && counter > index1){
-      break;
-    }
-    counter++;
-    tmp = tmp->next;
-  }
-  tmp = head;
-  counter = 0;
-  while((tmp->next) != nullptr){
-    if(counter == index1){
-      tmp->data = value2;
-    }
-    else if(counter == index2){
-      tmp->data = value1;
-    }
-    else if(counter > index2 && counter > index1){
-      break;
-    }
-    counter++;
-    tmp = tmp->next;
-  }
-  tmp = begin(tmp);
-  head = tmp;
-}
-
-int main()
-{
-  node* head = nullptr;
-  node* head1 = new node(head, 2, nullptr);
-  push_back(head,1);
-  push_back(head,2);
-  push_back(head,3);
-  push_back(head,4);
-  push_back(head,5);
-  push_back(head,6);
-  remove(head, 0);
-  cout << head << endl;
+int main(){
+  doubly_linked_list a(1);
+  a.push_front(2);
+  a.push_back(3);
+  a.push_back(6);
+  a.push_front(11);
+  std::cout << &a;
 }
