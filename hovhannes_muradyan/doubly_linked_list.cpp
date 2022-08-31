@@ -43,12 +43,14 @@ public:
   friend bool operator!=(doubly_linked_list first, doubly_linked_list second){
     return !(first==second);
   }
+  //TODO
   explicit doubly_linked_list(T value){
     head->value = value;
     head->prev = nullptr;
     head->next = nullptr;
     tail = head;
   }
+  //TODO
   doubly_linked_list(const doubly_linked_list &O1){
     head = O1.head;
     tail = O1.head;
