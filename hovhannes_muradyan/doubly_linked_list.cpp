@@ -116,6 +116,9 @@ node* end(node* head){
 int size(node* head){
   node* temp = head;
   int counter = 1;
+  if(temp == nullptr){
+    return 0;
+  }
   while(temp->next != nullptr){
     temp = temp->next;
     counter++;
@@ -173,6 +176,41 @@ void insert(node* &head, int index, int value){
     (temp->next)->prev = n;
   }
 }
+void clear(node* &head){
+  head = nullptr;
+}
+
+void resize(node* &head, int index){
+  node* tmp = head;
+  int counter = 0;
+  while(counter != index){
+    tmp = tmp->next;
+    counter++;
+  }
+  tmp->next = nullptr;
+  begin(tmp);
+  head = tmp;
+}
+
+void remove(node* &head, int index){
+  node* tmp = head;
+  int counter = 0;
+  while(counter != index){
+    tmp = tmp->next;
+    counter++;
+  }
+  if(tmp->prev != nullptr && tmp->next != nullptr) {
+    (tmp->prev)->next = tmp->next;
+    (tmp->next)->prev = tmp->prev;
+  }
+  else if(tmp->next != nullptr && tmp->prev == nullptr){
+    //TODO
+    (tmp->next)->prev = nullptr;
+  }
+  else{
+    (tmp->prev)->next = nullptr;
+  }
+}
 
 void emplace(node* &head, int index1, int index2){
   node* tmp = head;
@@ -221,6 +259,6 @@ int main()
   push_back(head,4);
   push_back(head,5);
   push_back(head,6);
-  emplace(head, 1, 2);
+  remove(head, 0);
   cout << head << endl;
 }
