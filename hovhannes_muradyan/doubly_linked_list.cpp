@@ -89,6 +89,7 @@ int doubly_linked_list<T>::size() const{
   if(head == nullptr){
     return 0;
   }
+<<<<<<< HEAD
   doubly_linked_list<T>::node* temp = head;
   int counter = 1;
   while(temp->next != nullptr){
@@ -114,6 +115,19 @@ void doubly_linked_list<T>::push_front(T value){
     head = new node(value);
     tail = head;
     return;
+=======
+  //TODO
+  explicit doubly_linked_list(T value){
+    head->value = value;
+    head->prev = nullptr;
+    head->next = nullptr;
+    tail = head;
+  }
+  //TODO
+  doubly_linked_list(const doubly_linked_list &O1){
+    head = O1.head;
+    tail = O1.head;
+>>>>>>> f9663936c909e21d6b8e47464000ba9c6b52c3d6
   }
   node* n = new node(value);
   n->next = head;
