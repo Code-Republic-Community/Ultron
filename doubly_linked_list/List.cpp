@@ -11,6 +11,7 @@
 #include "back.cpp"
 #include "emplace.cpp"
 #include "remove.cpp"
+#include "unique.cpp"
 
 template<typename T>
 std::ostream& operator<<(std::ostream& out, List<T> const &a){
@@ -21,6 +22,13 @@ std::ostream& operator<<(std::ostream& out, List<T> const &a){
   }
   std::cout<<"NULL"<<std::endl;
   return out;
+}
+
+template<typename T>
+void List<T>::operator+=(T value) {
+  tail->next = new node(value);
+  tail->next->prev = tail;
+  tail = tail->next;
 }
 
 template<typename T>
@@ -38,13 +46,56 @@ bool List<T>::operator==(List<T> second){
     tmp2 = tmp2->next;
   }
   return true;
-
 }
 
 template<typename T>
 bool List<T>::operator!=(List<T> second){
-  return !(this == second);
+  return !(*this == second);
 }
 
+template<typename T>
+bool List<T>::operator>(List<T> second) {
+  if (this->size() > second.size()) {
+    return true;
+  } else if (this->size() < second.size()) {
+    return false;
+  } else {
+    node* tmp = head;
+    node* tmp1 = second.head;
+    while(tmp->next != nullptr){
+      if(tmp->value > tmp1->value){
+        return true;
+      }
+      else if(tmp->value < tmp1->value){
+        return false;
+      }
+      tmp = tmp->next;
+      tmp1 = tmp1->next;
+    }
+    return false;
+  }
+}
 
+template<typename T>
+bool List<T>::operator>=(List<T> second) {
+  if(*this == second || *this > second){
+    return true;
+  }
+  return false;
+}
 
+template<typename T>
+bool List<T>::operator<(List<T> second) {
+  if(!(*this>=second)){
+    return true;
+  }
+  return false;
+}
+
+template<typename T>
+bool List<T>::operator<=(List<T> second) {
+  if(*this < second || *this == second){
+    return true;
+  }
+  return false;
+}

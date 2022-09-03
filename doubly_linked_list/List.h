@@ -1,6 +1,7 @@
 #ifndef UNTITLED_LIST_H
 #define UNTITLED_LIST_H
 #include "iostream"
+#include <initializer_list>
 
 template<typename T>
 class List{
@@ -17,8 +18,13 @@ public:
   }
   bool operator!=(List<T> second);
   bool operator==(List<T> second);
+  bool operator>(List<T> second);
+  bool operator>=(List<T> second);
+  bool operator<(List<T> second);
+  bool operator<=(List<T> second);
+  void operator+=(T second);
   /////////constructors/////////////////////
-  explicit List(T value){
+  explicit List(T value) {
     head = new node(value);
     tail = head;
   }
@@ -40,10 +46,26 @@ public:
       tail = temp;
     }
   }
+
+  List(std::initializer_list<T> e) {
+    head = new node(*e.begin());
+    node* temp = head;
+    int counter = 0;
+    for(auto element: e) {
+      if (counter != 0) {
+        temp->next = new node(element);
+        temp->next->prev = temp;
+        temp = temp->next;
+        tail = temp;
+      }
+      counter++;
+    }
+  }
+
+
   ~List() = default;
 
 public:
-
   int size() const; // return count of elements in list
   T front() const; // return first element value
   T back() const; // return last element value
@@ -55,6 +77,7 @@ public:
   void insert(int index, int value); // insert element with value in index
   void clear(); // clear all list
   bool empty(); // check if list is empty or not
+  void unique(); // remove dublicate values
 private:
   struct node{
     node* prev;
