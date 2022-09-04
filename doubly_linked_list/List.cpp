@@ -12,10 +12,12 @@
 #include "emplace.cpp"
 #include "remove.cpp"
 #include "unique.cpp"
+#include "merge.cpp"
+#include "splice.cpp"
 
 template<typename T>
 std::ostream& operator<<(std::ostream& out, List<T> const &a){
-  typename List<T>::node* temp=a.head;
+  typename List<T>::node* temp=a.head; // remind to ask
   while(temp!=nullptr){
     out<<temp->value<<" --> ";
     temp=temp->next;
@@ -29,6 +31,13 @@ void List<T>::operator+=(T value) {
   tail->next = new node(value);
   tail->next->prev = tail;
   tail = tail->next;
+}
+
+template<typename T>
+List<T> List<T>::operator+(T value) {
+  List<T> nlist = *this;
+  nlist+=value;
+  return nlist;
 }
 
 template<typename T>

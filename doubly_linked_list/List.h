@@ -23,6 +23,7 @@ public:
   bool operator<(List<T> second);
   bool operator<=(List<T> second);
   void operator+=(T second);
+  List<T> operator+(T value);
   /////////constructors/////////////////////
   explicit List(T value) {
     head = new node(value);
@@ -78,6 +79,10 @@ public:
   void clear(); // clear all list
   bool empty(); // check if list is empty or not
   void unique(); // remove dublicate values
+  void merge(List<T> second); // merge two list
+  void splice(List<T> &second); // append all elements from second list and delete from it
+  void splice(List<T> &second, int index); // move second[index] element from second list
+  void splice(List<T> &second, int index1, int index2); // move ellement from index1 to index2 to main list
 private:
   struct node{
     node* prev;
