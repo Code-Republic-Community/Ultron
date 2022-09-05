@@ -1,14 +1,48 @@
 #ifndef UNTITLED_LIST_H
 #define UNTITLED_LIST_H
-#include "iostream"
+#include <iostream>
 #include <initializer_list>
 
 template<typename T>
 class List{
 public:
-  /////////operators overloading ///////////////////
-  friend std::ostream& operator<<(std::ostream& out, List<T> const &a){
-    typename List<T>::node* temp=a.head;
+  List(const List &otherList) {
+    if (otherList.head_ == nullptr){
+      head_ = nullptr;
+      tail_ = nullptr;
+    }
+    else{
+      head_ = new node(otherList.head_->value);
+      node* otherNext = otherList.head_->next;
+      node* temp = head_;
+      while(otherNext != nullptr){
+        temp->next = new node(otherNext->value);
+        (temp->next)->prev = temp;
+        temp = temp->next;
+        otherNext = otherNext->next;
+      }
+      tail_ = temp;
+    }
+  }
+  List(std::initializer_list<T> init_list) {
+    head_ = new node(*init_list.begin());
+    node* temp = head_;
+    int counter = 0;
+    for(auto element: init_list) {
+      if (counter != 0) {
+        temp->next = new node(element);
+        temp->next->prev = temp;
+        temp = temp->next;
+        tail_ = temp;
+      }
+      counter++;
+    }
+  }
+  ~List() = default;
+
+public:
+  friend std::ostream& operator<<(std::ostream& out, List<T> const &second){
+    typename List<T>::node* temp=second.head_;
     while(temp!=nullptr){
       out<<temp->value<<" --> ";
       temp=temp->next;
@@ -26,45 +60,9 @@ public:
   List<T> operator+(T value);
   /////////constructors/////////////////////
   explicit List(T value) {
-    head = new node(value);
-    tail = head;
+    head_ = new node(value);
+    tail_ = head_;
   }
-  List(const List &otherList) {
-    if (otherList.head == nullptr){
-      head = nullptr;
-      tail = nullptr;
-    }
-    else{
-      head = new node(otherList.head->value);
-      node* otherNext = otherList.head->next;
-      node* temp = head;
-      while(otherNext != nullptr){
-        temp->next = new node(otherNext->value);
-        (temp->next)->prev = temp;
-        temp = temp->next;
-        otherNext = otherNext->next;
-      }
-      tail = temp;
-    }
-  }
-
-  List(std::initializer_list<T> e) {
-    head = new node(*e.begin());
-    node* temp = head;
-    int counter = 0;
-    for(auto element: e) {
-      if (counter != 0) {
-        temp->next = new node(element);
-        temp->next->prev = temp;
-        temp = temp->next;
-        tail = temp;
-      }
-      counter++;
-    }
-  }
-
-
-  ~List() = default;
 
 public:
   int size() const; // return count of elements in list
@@ -83,24 +81,25 @@ public:
   void splice(List<T> &second); // append all elements from second list and delete from it
   void splice(List<T> &second, int index); // move second[index] element from second list
   void splice(List<T> &second, int index1, int index2); // move ellement from index1 to index2 to main list
+
 private:
   struct node{
     node* prev;
     node* next;
     T value;
-    explicit node(T i) {
-      value = i;
+    explicit node(T init_value) {
+      value = init_value;
       prev = nullptr;
       next = nullptr;
     }
-    node(const node &i){
-      value = i.value;
-      prev = i.prev;
-      next = i.prev;
+    node(const node &init_node){
+      value = init_node.value;
+      prev = init_node.prev;
+      next = init_node.prev;
     }
   };
-  node* head;
-  node* tail;
+  node* head_;
+  node* tail_;
 };
 
 
