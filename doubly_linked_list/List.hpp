@@ -15,30 +15,19 @@ List<T>::List(T value) {
 }
 
 template<typename T>
-List<T>::List(const List &other_list) {
-  if(_head != nullptr) {
-    node *tmp = _head;
-    while (tmp->next != nullptr) {
-      tmp = tmp->next;
-      delete tmp->prev;
-      tmp->prev= nullptr;
+List<T>::List(const List<T> &other_list) {
+    if (other_list._head != nullptr){
+      _head = new node(other_list._head->value);
+      node* otherNext = other_list._head->next;
+      node* temp = _head;
+      while(otherNext != nullptr) {
+        temp->next = new node(otherNext->value);
+        (temp->next)->prev = temp;
+        temp = temp->next;
+        otherNext = otherNext->next;
+      }
+      _tail = temp;
     }
-    delete tmp;
-    _head = nullptr;
-    _tail = nullptr;
-  }
-  if (other_list._head != nullptr) {
-    _head = new node(other_list._head->value);
-    node *otherNext = other_list._head->next;
-    node *temp = _head;
-    while (otherNext != nullptr) {
-      temp->next = new node(otherNext->value);
-      (temp->next)->prev = temp;
-      temp = temp->next;
-      otherNext = otherNext->next;
-    }
-    _tail = temp;
-  }
 }
 
 template<typename T>
@@ -56,19 +45,48 @@ List<T>::List(std::initializer_list<T> init_list) {
 template<typename T>
 List<T>::~List() {
   if(_head != nullptr) {
-    while (_head->next != nullptr) {
-      _head = _head->next;
-      delete _head->prev;
-      _head->prev = nullptr;
+    node *tmp = _head;
+    while (tmp->next != nullptr) {
+      tmp = tmp->next;
+      delete tmp->prev;
+      tmp->prev = nullptr;
     }
-    delete _head;
-    _head = nullptr;
+    delete tmp;
+    tmp = nullptr;
   }
 }
 
+
+template<typename T>
+List<T>& List<T>::operator=(List<T> other_list) {
+  if(_head != nullptr){
+    node *tmp = _head;
+    while(tmp->next != nullptr){
+      tmp = tmp ->next;
+      delete tmp->prev;
+      tmp->prev = nullptr;
+    }
+    delete tmp;
+    tmp = nullptr;
+  }
+  if (other_list._head != nullptr) {
+    _head = new node(other_list._head->value);
+    node* otherNext = other_list._head->next;
+    node* temp = _head;
+    while(otherNext != nullptr) {
+      temp->next = new node(otherNext->value);
+      (temp->next)->prev = temp;
+      temp = temp->next;
+      otherNext = otherNext->next;
+    }
+    _tail = temp;
+  }
+  return *this;
+};
+
 template<typename T>
 std::ostream &operator<<(std::ostream &out, const List<T> &obj) {
-  typename List<T>::node *temp = obj._head; // remind asking
+  typename List<T>::node *temp = obj._head;
   while (temp != nullptr) {
     out << temp->value << " --> ";
     temp = temp->next;
@@ -198,10 +216,9 @@ void List<T>::remove_by_index(int index) {
     return;
   }
   node *tmp = _head;
-  int counter = 0;
-  while (counter != index) {
+  while (index != 0) {
     tmp = tmp->next;
-    counter++;
+    index--;
   }
   if (tmp->prev != nullptr && tmp->next != nullptr) {
     (tmp->prev)->next = tmp->next;
@@ -312,10 +329,9 @@ void List<T>::splice(List<T> &second, int index) {
     return;
   }
   node *tmp = second._head;
-  int counter = 0;
-  while (counter != index) {
+  while (index != 0) {
     tmp = tmp->next;
-    counter++;
+    index--;
   }
   this->push_back(tmp->value);
   second.remove_by_index(index);
@@ -383,9 +399,8 @@ void List<T>::insert(int index, int value) {
     push_front(value);
   } else {
     node *temp = _head;
-    int counter = 0;
-    while (counter < index) {
-      counter++;
+    while (index != 0) {
+      index--;
       temp = temp->next;
     }
     node *new_node = new node(value);
@@ -416,4 +431,34 @@ template<typename T>
 T List<T>::back() const {
   return _tail->value;
 }
+
+template<typename T>
+bool List<T>::iterator::operator!=(const iterator &itr) const {
+  return new_node != itr.new_node;
+}
+
+template<typename T>
+typename List<T>::iterator List<T>::begin() const {
+  return iterator(_head);
+}
+
+template<typename T>
+typename List<T>::iterator List<T>::end() const {
+  return iterator(_tail->next);
+}
+
+template<typename T>
+typename List<T>::iterator List<T>::iterator::operator++(int) {
+  iterator temp = *this;
+  new_node = new_node->next;
+  return temp;
+}
+
+template<typename T>
+typename List<T>::iterator List<T>::iterator::operator--(int) {
+  iterator temp = *this;
+  new_node = new_node->prev;
+  return temp;
+}
+
 
