@@ -13,9 +13,8 @@ int main(){
   a.push_back(3);
   a.push_back(6);
   a.push_front(11);
-  a.insert(16, 27);
-  List b = {2, 31, 32, 33, 122};
-  std::cout << a << std::endl;
-  b.remove_if(b.begin(), b.end(), &is_odd);
+  a.insert(4, 74);
+  List b = {2, 2, 1, 1, 4, 4, 4, 5, 5, 2};
   std::cout << b << std::endl;
+  std::cout << a << std::endl;
 }

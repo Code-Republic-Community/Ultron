@@ -48,23 +48,12 @@ private:
     node *prev;
     node *next;
     T value;
-
-    explicit node(T init_value) {
-      value = init_value;
-      prev = nullptr;
-      next = nullptr;
-    }
-    node(const node &init_node) {
-      value = init_node.value;
-      prev = init_node.prev;
-      next = init_node.prev;
-    }
+    explicit node(T init_value);
+    node(const node &init_node);
   };
-
   void remove_by_index(int index); //remove element by index
   node *_head;
   node *_tail;
-
 
   class iterator {
     friend class List;
@@ -74,35 +63,17 @@ private:
     T& operator*() const {
       return new_node->value;
     }
-    node* operator->() const {
-      return new_node;
-    }
-
+    node* operator->() const;
     iterator operator++(int);
     iterator operator--(int);
   private:
-    iterator(node *new_ptr) : new_node(new_ptr) {}
+    explicit iterator(node *new_ptr) : new_node(new_ptr) {}
     node *new_node;
   };
 public:
   iterator begin() const;
   iterator end() const;
-  void remove_if(iterator start, iterator end, bool (*func)(T)){
-    for(auto pos = start; pos != end; pos++) {
-      if(func(*pos) == true){
-        if(pos->next != nullptr && pos->prev != nullptr) {
-          pos->prev->next = pos->next;
-          pos->next->prev = pos->prev;
-        } else if(pos->prev == nullptr && pos->next != nullptr){
-          pos->next->prev = nullptr;
-          _head = pos->next;
-        } else {
-          pos->prev->next = nullptr;
-          _tail = pos->prev;
-        }
-      }
-    }
-  }
+  void remove_if(iterator start, iterator end, bool (*func)(T));
 };
 
 #endif
