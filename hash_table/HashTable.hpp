@@ -15,6 +15,68 @@ HashTable<T>::node::node(T init_value)  {
 template<typename T>
 HashTable<T>::node::node()= default;
 
+
+template<typename T>
+bool HashTable<T>::operator>(HashTable<T> &obj) {
+  if(_count > obj.size()) {
+    return true;
+  }
+  return false;
+}
+
+template<typename T>
+bool HashTable<T>::operator>=(HashTable<T> &obj) {
+  if(_count >= obj.size()) {
+    return true;
+  }
+  return false;
+}
+
+template<typename T>
+bool HashTable<T>::operator<(HashTable<T> &obj) {
+  if(!(this>=obj.size())) {
+    return true;
+  }
+  return false;
+}
+
+template<typename T>
+bool HashTable<T>::operator<=(HashTable<T> &obj) {
+  if(_count < obj.size() || _count == obj.size()) {
+    return true;
+  }
+  return false;
+}
+
+template<typename T>
+bool HashTable<T>::operator==(HashTable<T> &obj) {
+  if(_count == obj.size()) {
+    return true;
+  }
+  return false;
+}
+
+template<typename T>
+bool HashTable<T>::operator!=(HashTable<T> &obj) {
+  if(!(this == obj)) {
+    return true;
+  }
+  return false;
+}
+
+//TODO (delete old elements)
+template<typename T>
+HashTable<T> &HashTable<T>::operator=(HashTable<T> obj) {
+  this->array.resize(obj.size());
+  for(int i = 0; i < obj.size(); i++) {
+    node *tmp = obj.array[i];
+    while(tmp != nullptr) {
+      this->insert(tmp->value);
+      tmp = tmp->next;
+    }
+  }
+}
+
 template<typename T>
 std::ostream &operator<<(std::ostream &out, const HashTable<T> &obj) {
   for(int i = 0; i < obj.array.size(); i++){
@@ -114,4 +176,3 @@ bool HashTable<T>::contain(T value) const {
   }
   return false;
 }
-
