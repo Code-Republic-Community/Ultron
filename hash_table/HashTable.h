@@ -8,13 +8,13 @@ template<typename T>
 class HashTable {
 public:
   HashTable();
-  HashTable(const HashTable<T> &other_list); // TODO
-  HashTable(std::initializer_list<T> init_list); // TODO
-  ~HashTable(); // TODO
+  HashTable(const HashTable<T> &other_list);
+  HashTable(std::initializer_list<T> init_list);
+  ~HashTable();
 
   template<typename U>
   friend std::ostream &operator<<(std::ostream &out, const HashTable<U> &obj);
-  HashTable<T> &operator=(HashTable<T> obj);
+  HashTable<T> &operator=(HashTable<T> other_list);
   bool operator!=(HashTable<T> &obj);
   bool operator==(HashTable<T> &obj);
   bool operator>(HashTable<T> &obj);
@@ -27,8 +27,16 @@ public:
   void insert(std::string &s);
   void insert(T value);
   bool empty() const;
+  void clear();
   int size();
+  int count(std::string value);
+  int count(T value);
+  std::string find(std::string value);
+  T find(T value);
   bool contain(T value) const;
+  double load_factor();
+  void merge(HashTable<T> &another_list);
+
 private:
   struct node {
     T value;

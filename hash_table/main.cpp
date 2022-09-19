@@ -4,10 +4,8 @@
 using namespace std;
 
 int main() {
-  HashTable<int> a;
-  a.insert(123);
-  a.insert(123);
-  a.insert(124124);
-  a.insert(12515125);
-  cout << a.contains(1234);
+  HashTable<int> b({1, 23, 421, 2, 4,  5, 5, 5, 5, 37, 5});
+  HashTable<int> a({1, 2, 4, 5, 6, 7, 8, 9, 20});
+  a.merge(b);
+  std::cout << a << std::endl;
 }
