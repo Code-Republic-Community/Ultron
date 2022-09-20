@@ -4,8 +4,19 @@
 using namespace std;
 
 int main() {
-  HashTable<int> b({1, 23, 421, 2, 4,  5, 5, 5, 5, 37, 5});
-  HashTable<int> a({1, 2, 4, 5, 6, 7, 8, 9, 20});
-  a.merge(b);
+  HashTable<int> b;
+  b.insert(1);
+  b.insert(2);
+  b.insert(3);
+
+  HashTable<int> a;
+  a.insert(4);
+  a.insert(5);
+  a.insert(6);
+  a.insert(7);
+  a.insert(7);
+  a.insert(7);
+  a.insert(7);
   std::cout << a << std::endl;
+  std::cout << b << std::endl;
 }

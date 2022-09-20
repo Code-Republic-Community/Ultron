@@ -345,10 +345,11 @@ T HashTable<T>::find(T value) {
   return 0;
 }
 
+//TODO fix the bug
 template<typename T>
 void HashTable<T>::merge(HashTable<T> &another_list) {
   node *tmp;
-  for(int i = 0; i < another_list.size(); i++) {
+  for(int i = 0; i <= another_list.size(); i++) {
     tmp = another_list.array[i];
     while(tmp != nullptr) {
       if (!(this->contain(tmp->value))) {
@@ -358,3 +359,36 @@ void HashTable<T>::merge(HashTable<T> &another_list) {
     }
   }
 }
+
+template<typename T>
+void HashTable<T>::erase(std::string value) {
+  node *tmp1;
+  int index = HashFunctionHorner(value, this->array.size(), this->array.size() - 1);
+  node *tmp = array[index];
+  while(tmp != nullptr && tmp->next != value) {
+    if (tmp->next->value == value) {
+      tmp1 = tmp->next;
+      tmp->next = tmp->next->next;
+      delete tmp1;
+      tmp1 = nullptr;
+    }
+  }
+}
+
+template<typename T>
+void HashTable<T>::erase(T value) {
+  int index = std::hash<T>()(value) % array.size();
+  node *tmp = array[index];
+  if(tmp->next == nullptr && tmp->value == value) {
+    tmp = nullptr;
+  }
+  while(tmp != nullptr) {
+    if(tmp->next != nullptr && tmp->next->value == value) {
+      tmp->next = tmp->next->next;
+      break;
+    }
+    tmp = tmp->next;
+  }
+}
+
+

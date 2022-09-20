@@ -31,6 +31,14 @@ public:
   int size();
   int count(std::string value);
   int count(T value);
+  void erase(std::string value);
+  void erase(T value);
+  void swap(HashTable<T> &obj) {
+    obj.array.swap(array);
+    int count_transfer = obj._count;
+    obj._count = _count;
+    _count = count_transfer;
+  };
   std::string find(std::string value);
   T find(T value);
   bool contain(T value) const;
