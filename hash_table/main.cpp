@@ -13,10 +13,6 @@ int main() {
   a.insert(4);
   a.insert(5);
   a.insert(6);
-  a.insert(7);
-  a.insert(7);
-  a.insert(7);
-  a.insert(7);
   std::cout << a << std::endl;
   std::cout << b << std::endl;
 }

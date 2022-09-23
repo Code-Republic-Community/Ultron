@@ -199,33 +199,37 @@ void HashTable<T>::resize() {
 
 template<typename T>
 void HashTable<T>::insert(std::string &value) {
-  _count++;
-  int index = HashFunctionHorner(value, this->array.size(), this->array.size() - 1);
-  node *tmp = array[index];
-  if(tmp == nullptr) {
-    array[index] = new node(value);
-  } else {
-    array[index] = new node(value);
-    array[index]->next = tmp;
-  }
-  if(_count * 2 > array.size()) {
-    resize();
+  if(!(this->contain(value))) {
+    _count++;
+    int index = HashFunctionHorner(value, this->array.size(), this->array.size() - 1);
+    node *tmp = array[index];
+    if (tmp == nullptr) {
+      array[index] = new node(value);
+    } else {
+      array[index] = new node(value);
+      array[index]->next = tmp;
+    }
+    if (_count * 2 > array.size()) {
+      resize();
+    }
   }
 }
 
 template<typename T>
 void HashTable<T>::insert(T value) {
-  _count++;
-  int index = std::hash<T>()(value) % array.size();
-  node *tmp = array[index];
-  if(tmp == nullptr) {
-    array[index] = new node(value);
-  } else {
-    array[index] = new node(value);
-    array[index]->next = tmp;
-  }
-  if(_count * 2 > array.size()) {
-    resize();
+  if(!(this->contain(value))) {
+    _count++;
+    int index = std::hash<T>()(value) % array.size();
+    node *tmp = array[index];
+    if (tmp == nullptr) {
+      array[index] = new node(value);
+    } else {
+      array[index] = new node(value);
+      array[index]->next = tmp;
+    }
+    if (_count * 2 > array.size()) {
+      resize();
+    }
   }
 }
 
@@ -352,9 +356,7 @@ void HashTable<T>::merge(HashTable<T> &another_list) {
   for(int i = 0; i <= another_list.size(); i++) {
     tmp = another_list.array[i];
     while(tmp != nullptr) {
-      if (!(this->contain(tmp->value))) {
-        this->insert(tmp->value);
-      }
+      this->insert(tmp->value);
       tmp = tmp->next;
     }
   }
