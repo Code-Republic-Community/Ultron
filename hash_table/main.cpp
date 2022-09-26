@@ -1,18 +1,19 @@
-#include "HashTable.hpp"
+#include "HashTable.h"
 #include <iostream>
 
-using namespace std;
-
 int main() {
-  HashTable<int> b;
-  b.insert(1);
-  b.insert(2);
-  b.insert(3);
-
   HashTable<int> a;
-  a.insert(4);
-  a.insert(5);
+  a.insert(1);
+  a.insert(3);
   a.insert(6);
   std::cout << a << std::endl;
-  std::cout << b << std::endl;
+  HashTable<std::string> b;
+  b.insert("aasf");
+  b.insert("asf");
+  b.insert("huoh");
+  std::cout << b;
+  HashTable<std::string> c;
+  c.insert("a");
+  std::cout << (b>c) << std::endl;
+
 }
