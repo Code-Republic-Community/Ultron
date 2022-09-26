@@ -75,5 +75,6 @@ public:
   iterator end() const;
   void remove_if(iterator start, iterator end, bool (*func)(T));
 };
+#include "List.hpp"
 
 #endif

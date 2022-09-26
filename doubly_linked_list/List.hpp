@@ -1,8 +1,6 @@
 #include <iostream>
 #include <unordered_set>
 
-#include "List.h"
-
 template<typename T>
 List<T>::List() {
   _head = nullptr;
