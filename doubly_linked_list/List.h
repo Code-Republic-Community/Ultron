@@ -34,7 +34,7 @@ public:
   void push_back(int value); // append element
   void emplace(int index1, int index2); // emplace element values by index
   void resize(int index); // save first index elements
-  void insert(int index, int value); // insert element with value in index
+  void insert(int index, T value); // insert element with value in index
   void clear(); // clear all list
   bool empty() const; // check if list is empty or not
   void unique(); // remove duplicate values
@@ -42,7 +42,6 @@ public:
   void splice(List<T> &obj); // append all elements from second list and delete from it
   void splice(List<T> &obj, int index); // move second[index] element from second list
   void splice(List<T> &obj, int index1, int index2); // move element from index1 to index2 to main list
-
 private:
   struct node {
     node *prev;
@@ -55,26 +54,27 @@ private:
   node *_head;
   node *_tail;
 
-  class iterator {
+  class iterator : public std::input_iterator_tag {
     friend class List;
   public:
     iterator() : new_node(nullptr) {}
     bool operator!=(const iterator &itr) const;
-    T& operator*() const {
+    T &operator*() const {
       return new_node->value;
     }
-    node* operator->() const;
+    node *operator->() const;
     iterator operator++(int);
     iterator operator--(int);
+
   private:
     explicit iterator(node *new_ptr) : new_node(new_ptr) {}
     node *new_node;
   };
+
 public:
   iterator begin() const;
   iterator end() const;
   void remove_if(iterator start, iterator end, bool (*func)(T));
 };
-#include "List.hpp"
 
 #endif
