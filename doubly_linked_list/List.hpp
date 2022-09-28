@@ -401,7 +401,7 @@ void List<T>::merge(const List<T> &obj) {
 }
 
 template<typename T>
-void List<T>::insert(int index, int value) {
+void List<T>::insert(int index, T value) {
   if(index < 0){
     return;
   } else if (this->size() <= index) {

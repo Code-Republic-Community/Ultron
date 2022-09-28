@@ -54,7 +54,8 @@ private:
   node *_head;
   node *_tail;
 
-  class iterator : public std::input_iterator_tag {
+  class iterator {
+    typedef std::bidirectional_iterator_tag iterator_category;
     friend class List;
   public:
     iterator() : new_node(nullptr) {}
@@ -77,4 +78,5 @@ public:
   void remove_if(iterator start, iterator end, bool (*func)(T));
 };
 
+#include "List.hpp"
 #endif
