@@ -16,7 +16,7 @@ public:
 public:
   template<typename U>
   friend std::ostream &operator<<(std::ostream &out, const List<U> &obj);
-  List<T> &operator=(List<T> obj);
+  List<T> &operator=(List<T> other_list);
   bool operator!=(List<T> &obj);
   bool operator==(List<T> &obj);
   bool operator>(List<T> &obj);
@@ -53,8 +53,7 @@ private:
   void remove_by_index(int index); //remove element by index
   node *_head;
   node *_tail;
-
-  class iterator {
+  class iterator  {
     typedef std::bidirectional_iterator_tag iterator_category;
     friend class List;
   public:
@@ -64,8 +63,8 @@ private:
       return new_node->value;
     }
     node *operator->() const;
-    iterator operator++(int);
-    iterator operator--(int);
+    const iterator operator++(int);
+    const iterator operator--(int);
 
   private:
     explicit iterator(node *new_ptr) : new_node(new_ptr) {}
