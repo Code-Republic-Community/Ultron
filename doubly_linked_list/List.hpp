@@ -1,6 +1,8 @@
 #include <iostream>
 #include <unordered_set>
 
+#include "List.h"
+
 template<typename T>
 List<T>::List() {
   _head = nullptr;
@@ -15,18 +17,18 @@ List<T>::List(T value) {
 
 template<typename T>
 List<T>::List(const List<T> &other_list) {
-    if (other_list._head != nullptr){
-      _head = new node(other_list._head->value);
-      node* otherNext = other_list._head->next;
-      node* temp = _head;
-      while(otherNext != nullptr) {
-        temp->next = new node(otherNext->value);
-        (temp->next)->prev = temp;
-        temp = temp->next;
-        otherNext = otherNext->next;
-      }
-      _tail = temp;
+  if (other_list._head != nullptr) {
+    _head = new node(other_list._head->value);
+    node *otherNext = other_list._head->next;
+    node *temp = _head;
+    while (otherNext != nullptr) {
+      temp->next = new node(otherNext->value);
+      (temp->next)->prev = temp;
+      temp = temp->next;
+      otherNext = otherNext->next;
     }
+    _tail = temp;
+  }
 }
 
 template<typename T>
@@ -43,7 +45,7 @@ List<T>::List(std::initializer_list<T> init_list) {
 
 template<typename T>
 List<T>::~List() {
-  if(_head != nullptr) {
+  if (_head != nullptr) {
     node *tmp = _head;
     while (tmp->next != nullptr) {
       tmp = tmp->next;
@@ -70,11 +72,11 @@ List<T>::node::node(const List::node &init_node) {
 }
 
 template<typename T>
-List<T>& List<T>::operator=(List<T> other_list) {
-  if(_head != nullptr){
+List<T> &List<T>::operator=(List<T> other_list) {
+  if (_head != nullptr) {
     node *tmp = _head;
-    while(tmp->next != nullptr){
-      tmp = tmp ->next;
+    while (tmp->next != nullptr) {
+      tmp = tmp->next;
       delete tmp->prev;
       tmp->prev = nullptr;
     }
@@ -83,9 +85,9 @@ List<T>& List<T>::operator=(List<T> other_list) {
   }
   if (other_list._head != nullptr) {
     _head = new node(other_list._head->value);
-    node* otherNext = other_list._head->next;
-    node* temp = _head;
-    while(otherNext != nullptr) {
+    node *otherNext = other_list._head->next;
+    node *temp = _head;
+    while (otherNext != nullptr) {
       temp->next = new node(otherNext->value);
       (temp->next)->prev = temp;
       temp = temp->next;
@@ -250,17 +252,17 @@ void List<T>::remove_by_index(int index) {
 
 template<typename T>
 void List<T>::unique() {
-  if(_head == nullptr) {
+  if (_head == nullptr) {
     return;
   }
   std::unordered_set<T> used;
-  node* tmp = _head;
-  node* tmp_next;
+  node *tmp = _head;
+  node *tmp_next;
   while (tmp != nullptr) {
-    if(used.find(tmp->value) != used.end()) {
+    if (used.find(tmp->value) != used.end()) {
       tmp_next = tmp->next;
       tmp->prev->next = tmp->next;
-      if(tmp->next != nullptr) {
+      if (tmp->next != nullptr) {
         tmp->next->prev = tmp->prev;
       }
       tmp = tmp_next;
@@ -327,37 +329,37 @@ void List<T>::resize(int index) {
 }
 
 template<typename T>
-void List<T>::splice(List<T> &second) {
-  this->merge(second);
-  second.clear();
+void List<T>::splice(List<T> &obj) {
+  this->merge(obj);
+  obj.clear();
 }
 
 template<typename T>
-void List<T>::splice(List<T> &second, int index) {
-  if (index > second.size() || index < 0) {
+void List<T>::splice(List<T> &obj, int index) {
+  if (index > obj.size() || index < 0) {
     return;
   }
-  node *tmp = second._head;
+  node *tmp = obj._head;
   while (index != 0) {
     tmp = tmp->next;
     index--;
   }
   this->push_back(tmp->value);
-  second.remove_by_index(index);
+  obj.remove_by_index(index);
 }
 
 template<typename T>
-void List<T>::splice(List<T> &second, int index1, int index2) {
+void List<T>::splice(List<T> &obj, int index1, int index2) {
   if (index2 < index1) {
     std::swap(index1, index2);
   }
-  if (index1 > second.size() || index1 < 0 || index2 > second.size() || index2 < 0) {
+  if (index1 > obj.size() || index1 < 0 || index2 > obj.size() || index2 < 0) {
     return;
-  } else if (second.size() == index2 - index1 + 1) {
-    this->splice(second);
+  } else if (obj.size() == index2 - index1 + 1) {
+    this->splice(obj);
     return;
   }
-  node *tmp = second._head;
+  node *tmp = obj._head;
   int counter = 0;
   while (counter != index1) {
     tmp = tmp->next;
@@ -366,11 +368,11 @@ void List<T>::splice(List<T> &second, int index1, int index2) {
   while (counter != index2) {
     this->push_back(tmp->value);
     tmp = tmp->next;
-    second.remove_by_index(index1);
+    obj.remove_by_index(index1);
     counter++;
   }
   this->push_back(tmp->value);
-  second.remove_by_index(index1);
+  obj.remove_by_index(index1);
 }
 
 template<typename T>
@@ -402,7 +404,7 @@ void List<T>::merge(const List<T> &obj) {
 
 template<typename T>
 void List<T>::insert(int index, T value) {
-  if(index < 0){
+  if (index < 0) {
     return;
   } else if (this->size() <= index) {
     push_back(value);
@@ -410,7 +412,7 @@ void List<T>::insert(int index, T value) {
     push_front(value);
   } else {
     iterator ptr = this->begin();
-    for(int i = 0; i < index-1; i++) {
+    for (int i = 0; i < index - 1; i++) {
       ptr++;
     }
     node *tmp = ptr->next->prev;
@@ -431,7 +433,7 @@ bool List<T>::empty() const {
 
 template<typename T>
 void List<T>::clear() {
-  if(_head != nullptr) {
+  if (_head != nullptr) {
     node *tmp = _head;
     while (tmp->next != nullptr) {
       tmp = tmp->next;
@@ -465,13 +467,33 @@ typename List<T>::iterator List<T>::end() const {
 }
 
 template<typename T>
+const typename List<T>::iterator List<T>::iterator::operator++(int) {
+  iterator temp = *this;
+  new_node = new_node->next;
+  return temp;
+}
+
+template<typename T>
+const typename List<T>::iterator List<T>::iterator::operator--(int) {
+  iterator temp = *this;
+  new_node = new_node->prev;
+  return temp;
+}
+
+template<typename T>
+typename List<T>::node *List<T>::iterator::operator->() const {
+  return new_node;
+}
+
+
+template<typename T>
 void List<T>::remove_if(List::iterator start, List::iterator end, bool (*func)(T)) {
-  for(auto pos = start; pos != end; pos++) {
-    if(func(*pos) == true){
-      if(pos->next != nullptr && pos->prev != nullptr) {
+  for (auto pos = start; pos != end; pos++) {
+    if (func(*pos) == true) {
+      if (pos->next != nullptr && pos->prev != nullptr) {
         pos->prev->next = pos->next;
         pos->next->prev = pos->prev;
-      } else if(pos->prev == nullptr && pos->next != nullptr){
+      } else if (pos->prev == nullptr && pos->next != nullptr) {
         pos->next->prev = nullptr;
         _head = pos->next;
       } else {
@@ -482,22 +504,3 @@ void List<T>::remove_if(List::iterator start, List::iterator end, bool (*func)(T
   }
 }
 
-template<typename T>
-typename List<T>::iterator List<T>::iterator::operator++(int) {
-  iterator temp = *this;
-  new_node = new_node->next;
-  return temp;
-}
-
-template<typename T>
-typename List<T>::iterator List<T>::iterator::operator--(int) {
-  iterator temp = *this;
-  new_node = new_node->prev;
-  return temp;
-}
-
-template<typename T>
-typename List<T>::node *List<T>::iterator::operator->() const {
-  return new_node;
-}
-  
