@@ -4,32 +4,32 @@
 ## Constructors
 
 List()
--    Makes List type object, which equal NULL.
+-    Make List type object, which equal NULL.
 
 List(T value)
--	Makes List type object with one T type element in it. 
+-	Make List type object with one T type element in it. 
 
 List(List obj)
--	Makes list type object, which equal to obj
+-	Make list type object, which equal to obj
 
 List(std::initializer_list)
--	Makes list type object, which get values from initializer list. 
+-	Make list type object, which get values from initializer list. 
 -	
 ~List()
 -	Delete and free memory from all List nodes
 
 ## Methods
 front()
--	return first element value
+-	return first element's value
 
 back()
--	return last element value
+-	return last element's value
 
 size()
--	return list’s size
+-	return size of the List
 
 unique()
--	delete List’s all repeated(duplicate) values
+-	delete all duplicate elements
 
 empty()
 -	returns true if List is empty, false if vice versa 
@@ -38,43 +38,43 @@ insert(int index, T value)
 -	inserts one more T type element in index.
 
 push_back(T value)
--	adds one element in the end of the List
+-	add element in the end of the List
 
 push_front(T value)
--	adds one element in the front of the List
+-	add element in the front of the List
 
 emplace(int index1, int index2)
--	changes List’s index element values 
+-	changes element's indexes 
 
 resize(int size)
 -	changes List size
 -	Note: if argument is bigger than List’s size, function add 0 to the end, else,	                                    .                     function delete last elements 
 
 clear()
--	delete all List’s items and free the memory
+-	delete all List items and free the memory
 
 merge(List obj)
 -	add missing elements from obj to your List.
 
 splice(List obj)
--	move all elements from obj to your List
+-	move all elements from obj to the List
 -	Note: after this operation obj = NULL
 
 splice(List obj, int index)
--	move index element from obj to your List
+-	move List[index] from obj to the List
 -	Note: after this operation obj = NULL
 
 splice(List obj, int index1, int index2)
--	move all elements from index1 to object2 from obj to your List obj
+-	move elements from obj's range[index1, index2] to the List
 
 remove_if(iterator start, iterator end, bool (*func)(T))
--	remove all elements from List, which return true when the argument function .          is called
+-	remove all elements from the List, which returns True in the third argument
 
-back()
--	returns an iterator to the begin of the function
+begin()
+-	return an iterator to the begin of the function
 
 end()
--	returns an iterator to the end of the function
+-	return an iterator to the end of the function
 
 ## Operators
 ==   - return true if all elements are equal
