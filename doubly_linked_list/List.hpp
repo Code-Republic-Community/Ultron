@@ -72,7 +72,7 @@ List<T>::node::node(const List::node &init_node) {
 }
 
 template<typename T>
-List<T> &List<T>::operator=(List<T> other_list) {
+List<T> &List<T>::operator=(const List<T> other_list) {
   if (_head != nullptr) {
     node *tmp = _head;
     while (tmp->next != nullptr) {
@@ -110,7 +110,7 @@ std::ostream &operator<<(std::ostream &out, const List<T> &obj) {
 }
 
 template<typename T>
-void List<T>::operator+=(const List<T> obj) {
+void List<T>::operator+=(const List<T> &obj) {
   if (obj._head == nullptr) {
     return;
   }
@@ -119,18 +119,22 @@ void List<T>::operator+=(const List<T> obj) {
     this->push_back(tmp->value);
     tmp = tmp->next;
   }
-  this->_tail = tmp;
 }
 
 template<typename T>
-List<T> List<T>::operator+(List<T> obj) {
-  List<T> new_list = *this;
+List<T> List<T>::operator+(const List<T> &obj) const {
+  if (this->_head == nullptr) {
+    return obj;
+  } else if (obj._head == nullptr) {
+    return *this;
+  }
+  List<T> new_list(*this);
   new_list += obj;
   return new_list;
 }
 
 template<typename T>
-bool List<T>::operator==(List<T> &obj) {
+bool List<T>::operator==(const List<T> &obj) const {
   if (this->size() != obj.size()) {
     return false;
   }
@@ -147,12 +151,12 @@ bool List<T>::operator==(List<T> &obj) {
 }
 
 template<typename T>
-bool List<T>::operator!=(List<T> &obj) {
+bool List<T>::operator!=(const List<T> &obj) const {
   return !(*this == obj);
 }
 
 template<typename T>
-bool List<T>::operator>(List<T> &obj) {
+bool List<T>::operator>(const List<T> &obj) const {
   if (this == nullptr || obj._head == nullptr) {
     return false;
   }
@@ -177,7 +181,7 @@ bool List<T>::operator>(List<T> &obj) {
 }
 
 template<typename T>
-bool List<T>::operator>=(List<T> &obj) {
+bool List<T>::operator>=(const List<T> &obj) const {
   if (*this == obj || *this > obj) {
     return true;
   }
@@ -185,7 +189,7 @@ bool List<T>::operator>=(List<T> &obj) {
 }
 
 template<typename T>
-bool List<T>::operator<(List<T> &obj) {
+bool List<T>::operator<(const List<T> &obj) const {
   if (!(*this >= obj)) {
     return true;
   }
@@ -193,7 +197,7 @@ bool List<T>::operator<(List<T> &obj) {
 }
 
 template<typename T>
-bool List<T>::operator<=(List<T> &obj) {
+bool List<T>::operator<=(const List<T> &obj) const {
   if (*this < obj || *this == obj) {
     return true;
   }
@@ -485,7 +489,6 @@ typename List<T>::node *List<T>::iterator::operator->() const {
   return new_node;
 }
 
-
 template<typename T>
 void List<T>::remove_if(List::iterator start, List::iterator end, bool (*func)(T)) {
   for (auto pos = start; pos != end; pos++) {
@@ -503,4 +506,3 @@ void List<T>::remove_if(List::iterator start, List::iterator end, bool (*func)(T
     }
   }
 }
-
