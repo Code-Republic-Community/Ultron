@@ -1,4 +1,4 @@
-# Doubly linked list is a template node container.  You need to include List.hpp file to implement your own List type item.  
+# Doubly linked list is a template node container.  You need to include List.h file to implement your own List type item.  
 
 
 ## Constructors
