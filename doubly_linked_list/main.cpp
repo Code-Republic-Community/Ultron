@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+
 #include "List.h"
 
 int main() {
@@ -7,7 +8,7 @@ int main() {
   std::cout << "Testing constructors:" << std::endl;
   List<int> first(1);
   List<int> second = {2, 2, 1, 1, 4, 4, 4, 5, 5, 2, 6};
-  List<int>& forth(second);
+  List<int> &forth(second);
   List<int> third;
   std::cout << first;
   std::cout << second;
@@ -26,7 +27,7 @@ int main() {
   //TESTING::returnMethods
   std::cout << "Testing value-return methods:" << std::endl;
   std::cout << (first + third);
-  //std::cout << (second + forth); //TODO::FixTheBag
+  std::cout << (second + forth);
   std::cout << second.size() << std::endl;
   std::cout << second.front() << std::endl;
   std::cout << second.back() << std::endl;
@@ -35,9 +36,8 @@ int main() {
   //Testing::actionMethods
   std::cout << "Testing actions:" << std::endl;
   third += first;
-  std::cout << third;
-  //third += forth; // TODO::FixTheBag
-  //std::cout << third;
+  third += forth;
+  third.push_back(5);
   first.clear();
   std::cout << first;
   first.push_back(321);
