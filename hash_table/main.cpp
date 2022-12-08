@@ -1,19 +1,20 @@
-#include "HashTable.h"
 #include <iostream>
+#include <algorithm>
+#include <string>
+
+#include "HashTable.h"
 
 int main() {
-  HashTable<int> a;
-  a.insert(1);
-  a.insert(3);
-  a.insert(6);
-  std::cout << a << std::endl;
-  HashTable<std::string> b;
-  b.insert("aasf");
-  b.insert("asf");
-  b.insert("huoh");
-  std::cout << b;
-  HashTable<std::string> c;
-  c.insert("a");
-  std::cout << (b>c) << std::endl;
-
+  //Testing::constructors
+  HashTable<std::string, int> a;
+  HashTable<int, std::string> b(20);
+  b.insert(2, "fawf");
+  b.insert(2, "fasf");
+  b.insert(2, "qrwqrqr");
+  b.insert(123, "fasfa");
+  b.remove(2, "fawf");
+  b.remove(2, "qrwqrqr"); // TODO::CannotDeleteLastElementOfIndex
+  b.remove(2, "fasf");
+  //b.insert(2, "fasfg");
+  b.printTable();
 }
