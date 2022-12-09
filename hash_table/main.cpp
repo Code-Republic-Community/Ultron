@@ -7,6 +7,7 @@
 int main() {
   //Testing::constructors
   HashTable<std::string, int> a;
+  std::cout << a;
   a.insert("asd", 1);
   HashTable<std::string, int> l;
   l.insert("dsa", 2);
@@ -53,5 +54,6 @@ int main() {
   std::cout << b;
   std::cout << c;
   a.merge(l);
+  a.erase();
   std:: cout << "Table A: " << a;
 }
