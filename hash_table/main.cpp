@@ -7,6 +7,9 @@
 int main() {
   //Testing::constructors
   HashTable<std::string, int> a;
+  a.insert("asd", 1);
+  HashTable<std::string, int> l;
+  l.insert("dsa", 2);
   HashTable<int, std::string> b(10);
   HashTable<int, std::string> c(b);
   HashTable<std::string, std::string> d = {std::make_pair("fasf", "f"), std::make_pair("ffasf", "fwqff")};
@@ -45,6 +48,10 @@ int main() {
   std::cout << "Table B:" << std::endl;
   std::cout << b << std::endl;
   b.find(12);
-
-
+  b.insert(2, "124");
+  b.swap(c);
+  std::cout << b;
+  std::cout << c;
+  a.merge(l);
+  std:: cout << "Table A: " << a;
 }
