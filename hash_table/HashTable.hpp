@@ -48,6 +48,9 @@ HashTable<K, T>::HashTable(std::initializer_list<std::pair<K, T>> init_list) {
 
 template<typename K, typename T>
 HashTable<K, T>::~HashTable() {
+  if(_count == 0) {
+    return;
+  }
   node* tmp, *tmp1;
   for(int i = 0; i < array.size(); i++) {
     tmp = array[i];
@@ -216,6 +219,10 @@ void HashTable<K, T>::remove(K key, T value) {
 
 template<typename K, typename T>
 void HashTable<K, T>::print_table() {
+  if(_count == 0) {
+    std::cout << "Table is empty" << std::endl;
+    return;
+  }
   node* tmp;
   std::cout << "Table started: " << std::endl;
   for(int i = 0; i < array.size(); i++) {
@@ -313,6 +320,10 @@ void HashTable<K, T>::find(K key) const {
 template<typename U, typename Y>
 std::ostream &operator<<(std::ostream &out, const HashTable<U, Y> &obj) {
   typename HashTable<U, Y>::node* tmp;
+  if(obj._count == 0) {
+    std::cout << "Table is empty" << std::endl;
+    return out;
+  }
   std::cout << "Table started: " << std::endl;
   for(int i = 0; i < obj.array.size(); i++) {
     std::cout << i << ": ";
@@ -358,4 +369,19 @@ void HashTable<K, T>::merge(const HashTable<K, T> &obj) {
       tmp = tmp->next;
     }
   }
+}
+
+template<typename K, typename T>
+void HashTable<K, T>::erase() {
+  node* tmp, *tmp1;
+  for(int i = 0; i < array.size(); i++) {
+    tmp = array[i];
+    while(tmp != nullptr) {
+      tmp1 = tmp;
+      tmp = tmp->next;
+      delete tmp1;
+      tmp1 = nullptr;
+    }
+  }
+  _count = 0;
 }
