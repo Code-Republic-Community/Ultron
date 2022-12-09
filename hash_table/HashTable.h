@@ -15,7 +15,7 @@ public:
 
   template<typename U, typename Y>
   friend std::ostream &operator<<(std::ostream &out, const HashTable<U, Y> &obj);
-  HashTable<K, T> &operator=(const HashTable<K, T>  &other_list);
+  HashTable<K, T> &operator=(const HashTable<K, T>  &obj);
   bool operator==(const HashTable<K, T> &obj) const;
   bool operator!=(const HashTable<K, T> &obj) const;
   bool operator>(const HashTable<K, T> &obj) const; // Checking by size only
@@ -34,6 +34,8 @@ public:
   void remove(K key, T value);
   void print_table();
   int hash_function(K key); // returns index with argument key for current table
+  void swap(HashTable<K, T> &obj);
+  void merge(const HashTable<K, T> &obj);
 
 private:
   struct node {
