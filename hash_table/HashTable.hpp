@@ -14,7 +14,6 @@ HashTable<K, T>::node::node() {
   value = nullptr;
 }
 
-
 template<typename K, typename T>
 HashTable<K, T>::HashTable() {
   array.resize(10);
@@ -62,7 +61,7 @@ HashTable<K, T>::~HashTable() {
 }
 
 template<typename K, typename T>
-HashTable<K, T> &HashTable<K, T>::operator=(const HashTable<K, T> &other_list) {
+HashTable<K, T> &HashTable<K, T>::operator=(const HashTable<K, T> &obj) {
   node* tmp, *tmp1;
   if(!(this->empty())) {
     for(int i = 0; i < array.size(); i++) {
@@ -75,12 +74,12 @@ HashTable<K, T> &HashTable<K, T>::operator=(const HashTable<K, T> &other_list) {
       }
     }
   }
-  array.resize(other_list.array.size());
-  for(int i = 0; i < other_list.array.size(); i++) {
+  array.resize(obj.array.size());
+  for(int i = 0; i < obj.array.size(); i++) {
     array[i] = nullptr;
   }
-  for(int i = 0; i < other_list.array.size(); i++) {
-    tmp = other_list.array[i];
+  for(int i = 0; i < obj.array.size(); i++) {
+    tmp = obj.array[i];
     while(tmp != nullptr) {
       int index = std::hash<K>()(tmp->key) % array.size();
       if(array[index] == nullptr) {
@@ -198,12 +197,12 @@ void HashTable<K, T>::remove(K key, T value) {
   if(tmp == nullptr) {
     return;
   }
-  if(tmp->value == value) {
+  if(tmp->key == key && tmp->value == value) {
     array[index] = tmp->next;
     delete tmp;
     return;
   }
-  while (tmp->next->value != value) {
+  while (tmp->next->value != value && tmp->next->key == key) {
     tmp = tmp->next;
     if(tmp->next == nullptr) {
       return;
@@ -326,4 +325,37 @@ std::ostream &operator<<(std::ostream &out, const HashTable<U, Y> &obj) {
   }
   std::cout << "End of table." << std::endl;
   return out;
+}
+
+template<typename K, typename T>
+void HashTable<K, T>::swap(HashTable<K, T> &obj) {
+  HashTable<K, T> a = *this;
+  *this = obj;
+  obj = a;
+}
+
+template<typename K, typename T>
+void HashTable<K, T>::merge(const HashTable<K, T> &obj) {
+  node* tmp, *tmp1;
+  bool flag = false;
+  for(int i = 0; i < obj.array.size(); i++) {
+    tmp = obj.array[i];
+    while(tmp != nullptr) {
+      int index = std::hash<K>()(tmp->key) % this->array.size();
+      tmp1 = array[index];
+      while(tmp1 != nullptr) {
+        if(tmp1->key == tmp->key) {
+          tmp1->value = tmp->value;
+          flag = true;
+          break;
+        }
+        tmp1 = tmp->next;
+      }
+      if(!flag) {
+        this->insert(tmp->key, tmp->value);
+      }
+      flag = false;
+      tmp = tmp->next;
+    }
+  }
 }
