@@ -36,6 +36,7 @@ public:
   int hash_function(K key); // returns index with argument key for current table
   void swap(HashTable<K, T> &obj);
   void merge(const HashTable<K, T> &obj);
+  void erase();
 
 private:
   struct node {
