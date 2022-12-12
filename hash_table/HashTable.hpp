@@ -386,6 +386,18 @@ void HashTable<K, T>::erase() {
 }
 
 template<typename K, typename T>
-T HashTable<K, T>::operator[](K key) const {
+T HashTable<K, T>::operator[](const K &key) const {
   return this->find(key);
 }
+
+template<typename K, typename T>
+T& HashTable<K, T>::operator[](K &&key){
+  int index = std::hash<K>()(key) % this->array.size();
+  node* tmp = array[index];
+  while(tmp->key != key) {
+    tmp = tmp->next;
+  }
+  return tmp->value;
+}
+
+
