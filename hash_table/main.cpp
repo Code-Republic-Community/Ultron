@@ -55,6 +55,7 @@ int main() {
   std::cout << c;
   a.merge(l);
   a.erase();
+  c[4] = "asd";
   std::cout << c[4] << std::endl;
   std:: cout << "Table A: " << a;
 }
