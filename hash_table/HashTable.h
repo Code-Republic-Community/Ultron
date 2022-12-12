@@ -22,8 +22,8 @@ public:
   bool operator>=(const HashTable<K, T> &obj) const; // Checking by size only
   bool operator<(const HashTable<K, T> &obj) const; // Checking by size only
   bool operator<=(const HashTable<K, T> &obj) const; // Checking by size only
-  T operator[](K key) const;
-
+  T operator[](const K &key) const;
+  T& operator[](K &&key);
   [[nodiscard]] int get_count() const { return _count; }
   [[nodiscard]] bool empty() const;
   [[nodiscard]] bool contains(K key) const;
