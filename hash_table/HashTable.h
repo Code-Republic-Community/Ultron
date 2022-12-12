@@ -22,12 +22,12 @@ public:
   bool operator>=(const HashTable<K, T> &obj) const; // Checking by size only
   bool operator<(const HashTable<K, T> &obj) const; // Checking by size only
   bool operator<=(const HashTable<K, T> &obj) const; // Checking by size only
-
+  T operator[](K key) const;
 
   [[nodiscard]] int get_count() const { return _count; }
   [[nodiscard]] bool empty() const;
   [[nodiscard]] bool contains(K key) const;
-  void find(K key) const;
+  T find(K key) const;
   void insert(K key, T value);
   void emplace(K key, const T &value);
   void reformat();
