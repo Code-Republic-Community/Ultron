@@ -307,14 +307,13 @@ int HashTable<K, T>::hash_function(K key) {
 }
 
 template<typename K, typename T>
-void HashTable<K, T>::find(K key) const {
+T HashTable<K, T>::find(K key) const {
   int index = std::hash<K>()(key) % this->array.size();
   node* tmp = array[index];
-  std::cout << "With key " << key << " I find this: ";
   while(tmp->key != key) {
     tmp = tmp->next;
   }
-  std::cout << tmp->value;
+  return tmp->value;
 }
 
 template<typename U, typename Y>
@@ -384,4 +383,9 @@ void HashTable<K, T>::erase() {
     }
   }
   _count = 0;
+}
+
+template<typename K, typename T>
+T HashTable<K, T>::operator[](K key) const {
+  return this->find(key);
 }
