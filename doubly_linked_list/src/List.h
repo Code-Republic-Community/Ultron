@@ -28,7 +28,7 @@ public:
   T front() const; // return first element value
   T back() const; // return last element value
   void push_front(T value); // add element at front
-  void push_back(int value); // append element
+  void push_back(T value); // append element
   void emplace(int index1, int index2); // replace element values by index
   void resize(int index); // cut or add zeros to change the size of the list
   void insert(int index, T value); // insert element with value in index
