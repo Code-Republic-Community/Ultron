@@ -6,6 +6,9 @@
 -    List<T> name;
 -    List<T> name(size);
 -    List<T> name(obj):
+  
+  ## How to use methods(provided below) on List 
+ -    name.method(argument);
 
 ## Constructors
 
