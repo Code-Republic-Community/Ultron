@@ -47,7 +47,7 @@ private:
 
     explicit node(T init_value);
     node(const node &init_node);
-  };
+  }; // declaration of node class ends here
 
   void remove_by_index(int index); //remove element by index
   node *_head;
