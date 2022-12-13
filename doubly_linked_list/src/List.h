@@ -1,9 +1,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <iostream>
-#include <initializer_list>
-
 template<typename T>
 class List {
 public:
