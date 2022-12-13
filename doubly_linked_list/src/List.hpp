@@ -283,7 +283,7 @@ T List<T>::front() const {
 }
 
 template<typename T>
-void List<T>::push_back(int value) {
+void List<T>::push_back(T value) {
   if (_head == nullptr) {
     _head = new node(value);
     _tail = _head;
