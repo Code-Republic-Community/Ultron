@@ -32,7 +32,7 @@ List<T>::List(const List<T> &other_list) {
 }
 
 template<typename T>
-List<T>::List(std::initializer_list<T> init_list) {
+List<T>::List(const std::initializer_list<T> &init_list) {
   _head = new node(*init_list.begin());
   node *temp = _head;
   for (auto it = init_list.begin() + 1; it != init_list.end(); ++it) {
