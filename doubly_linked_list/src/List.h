@@ -7,7 +7,7 @@ public:
   List();
   explicit List(T value);
   List(const List<T> &other_list);
-  List(std::initializer_list<T> init_list);
+  List(const std::initializer_list<T> &init_list);
   ~List();
 
 public:
