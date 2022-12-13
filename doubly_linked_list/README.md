@@ -1,6 +1,11 @@
 # Doubly linked list is a template node container.  You need to include List.h file to implement your own List type item.  
 
 
+## How to define
+-    List<T> name;
+-    List<T> name(size);
+-    List<T> name(obj):
+
 ## Constructors
 
 List()
