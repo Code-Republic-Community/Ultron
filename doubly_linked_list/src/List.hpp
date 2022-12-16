@@ -32,6 +32,20 @@ List<T>::List(const List<T> &other_list) {
 }
 
 template<typename T>
+List<T>::List(const List<T> &&other_list)  noexcept {
+  _head = other_list._head;
+  _tail = other_list._head;
+  node *tmp = other_list._head;
+  while(tmp->next != nullptr) {
+    _tail->next = tmp->next;
+    _tail = _tail->next;
+    tmp = tmp->next;
+    delete tmp->prev;
+    tmp->prev = nullptr;
+  }
+}
+
+template<typename T>
 List<T>::List(const std::initializer_list<T> &init_list) {
   _head = new node(*init_list.begin());
   node *temp = _head;
@@ -72,7 +86,7 @@ List<T>::node::node(const List::node &init_node) {
 }
 
 template<typename T>
-List<T> &List<T>::operator=(const List<T> other_list) {
+List<T> &List<T>::operator=(const List<T> &other_list) {
   if (_head != nullptr) {
     node *tmp = _head;
     while (tmp->next != nullptr) {
@@ -82,6 +96,7 @@ List<T> &List<T>::operator=(const List<T> other_list) {
     }
     delete tmp;
     tmp = nullptr;
+
   }
   if (other_list._head != nullptr) {
     _head = new node(other_list._head->value);
@@ -94,6 +109,9 @@ List<T> &List<T>::operator=(const List<T> other_list) {
       otherNext = otherNext->next;
     }
     _tail = temp;
+  } else {
+    _head = nullptr;
+    _tail = nullptr;
   }
   return *this;
 }
