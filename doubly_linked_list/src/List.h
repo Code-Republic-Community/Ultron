@@ -7,13 +7,14 @@ public:
   List();
   explicit List(T value);
   List(const List<T> &other_list);
+  List(const List<T> &&other_list) noexcept;
   List(const std::initializer_list<T> &init_list);
   ~List();
 
 public:
   template<typename U>
   friend std::ostream &operator<<(std::ostream &out, const List<U> &obj);
-  List<T> &operator=(List<T> other_list);
+  List<T> &operator=(const List<T> &other_list);
   bool operator!=(const List<T> &obj) const;
   bool operator==(const List<T> &obj) const;
   bool operator>(const List<T> &obj) const;
