@@ -80,6 +80,6 @@ public:
   void remove_if(iterator start, iterator end, bool (*func)(T));
 };
 
-#include "List.hpp"
+#include "list.hpp"
 
 #endif // LIST_H
