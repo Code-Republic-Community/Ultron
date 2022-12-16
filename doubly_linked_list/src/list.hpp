@@ -1,7 +1,7 @@
 #include <iostream>
 #include <unordered_set>
 
-#include "List.h"
+#include "list.h"
 
 template<typename T>
 List<T>::List() {
