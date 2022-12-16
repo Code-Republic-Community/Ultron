@@ -1,2 +1,3 @@
+OBJFILES = list.hpp list.h
 all:
-	g++ main.cpp list.hpp list.h -o list_test
+	g++ ./tests/main.cpp -o list_test

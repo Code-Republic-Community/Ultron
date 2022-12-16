@@ -1,5 +1,6 @@
 #ifndef LIST_H
 #define LIST_H
+#pragma once
 
 template<typename T>
 class List {
