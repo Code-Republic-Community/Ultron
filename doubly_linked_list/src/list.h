@@ -7,7 +7,7 @@ public:
   List();
   explicit List(T value);
   List(const List<T> &other_list);
-  List(const List<T> &&other_list) noexcept;
+  List(List<T> &&other_list) noexcept;
   List(const std::initializer_list<T> &init_list);
   ~List();
 
@@ -15,6 +15,7 @@ public:
   template<typename U>
   friend std::ostream &operator<<(std::ostream &out, const List<U> &obj);
   List<T> &operator=(const List<T> &other_list);
+  List<T> &operator=(List<T> &&other_list);
   bool operator!=(const List<T> &obj) const;
   bool operator==(const List<T> &obj) const;
   bool operator>(const List<T> &obj) const;
@@ -54,21 +55,19 @@ private:
   node *_head;
   node *_tail;
 
+public:
   class iterator {
     typedef std::bidirectional_iterator_tag iterator_category;
     friend class List;
-
   public:
     iterator() : new_node(nullptr) {}
     bool operator!=(const iterator &itr) const;
     T &operator*() const {
       return new_node->value;
     }
-
     node *operator->() const;
     const iterator operator++(int);
     const iterator operator--(int);
-
   private:
     explicit iterator(node *new_ptr) : new_node(new_ptr) {}
     node *new_node;
