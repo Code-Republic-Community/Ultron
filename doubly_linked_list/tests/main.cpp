@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 
-#include "List.h"
+#include "list.h"
 
 int main() {
   //TESTING::constructors
