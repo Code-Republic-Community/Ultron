@@ -48,7 +48,7 @@ HashTable<K, T>::HashTable(HashTable &&obj) noexcept{
 }
 
 template<typename K, typename T>
-HashTable<K, T>::HashTable(std::initializer_list<std::pair<K, T>> init_list) {
+HashTable<K, T>::HashTable(const std::initializer_list<std::pair<K, T>> &init_list) {
   array.resize(init_list.size());
   for (auto it = init_list.begin(); it != init_list.end(); ++it) {
     this->insert(it->first, it->second);

@@ -10,7 +10,7 @@ public:
   explicit HashTable(int size);
   HashTable(const HashTable &obj);
   HashTable(HashTable &&obj) noexcept ;
-  HashTable(std::initializer_list<std::pair<K, T>> init_list);
+  HashTable(const std::initializer_list<std::pair<K, T>> &init_list);
   ~HashTable();
 
   template<typename U, typename Y>
@@ -50,7 +50,7 @@ private:
 
     T get_value() { return value; }
     K get_key() { return key; }
-  };
+  }; // NODE ENDED HERE
   int _count = 0;
   std::vector<node *> array;
 
