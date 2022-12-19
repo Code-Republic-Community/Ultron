@@ -1,7 +1,6 @@
 #ifndef UNTITLED_HASHTABLE_H
 #define UNTITLED_HASHTABLE_H
 
-#include <iostream>
 #include <vector>
 
 template<typename K, typename T>
@@ -9,13 +8,15 @@ class HashTable {
 public:
   HashTable();
   explicit HashTable(int size);
-  HashTable(const HashTable &object);
+  HashTable(const HashTable &obj);
+  HashTable(HashTable &&obj) noexcept ;
   HashTable(std::initializer_list<std::pair<K, T>> init_list);
   ~HashTable();
 
   template<typename U, typename Y>
   friend std::ostream &operator<<(std::ostream &out, const HashTable<U, Y> &obj);
   HashTable<K, T> &operator=(const HashTable<K, T>  &obj);
+  HashTable<K, T> &operator=(HashTable<K, T> &&obj) noexcept;
   bool operator==(const HashTable<K, T> &obj) const;
   bool operator!=(const HashTable<K, T> &obj) const;
   bool operator>(const HashTable<K, T> &obj) const; // Checking by size only
@@ -59,4 +60,4 @@ private:
 
 #include "HashTable.hpp"
 
-#endif
+#endif // HASHTABLE_H
