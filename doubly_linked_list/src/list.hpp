@@ -111,7 +111,7 @@ List<T> &List<T>::operator=(const List<T> &other_list) {
 }
 
 template<typename T>
-List<T> &List<T>::operator=(List<T> &&other_list) {
+List<T> &List<T>::operator=(List<T> &&other_list) noexcept {
   if (_head != nullptr) {
     node *tmp = _head;
     while (tmp->next != nullptr) {
