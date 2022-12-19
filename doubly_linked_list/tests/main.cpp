@@ -61,6 +61,9 @@ int main() {
   for (auto pos = first.begin(); pos != first.end(); pos++) {
     std::cout << pos->value << " ";
   }
+  List<int>::iterator ptr = first.begin();
+  std::cout << ptr->value;
+  ptr++;
   std::cout << std::endl << std::endl;
   //Testing:endResults
   std::cout << "Final tests:" << std::endl;
