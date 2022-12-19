@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <string>
 
-#include "../src/hashtable.h"
+#include "HashTable.h"
 
 int main() {
   //Testing::constructors
@@ -13,15 +13,15 @@ int main() {
   l.insert("dsa", 2);
   HashTable<int, std::string> b(10);
   HashTable<int, std::string> c(b);
-  HashTable<std::string, std::string> d = {std::make_pair("fasf", "f"), std::make_pair("ffasf", "fwqff")};
+  HashTable<std::string, std::string> d = {std::make_pair("fast", "f"), std::make_pair("faff", "fluff")};
   //Testing::methods
   a.insert("2414", 5);
-  a.insert("fasf", 2);
-  b.insert(2, "fawf");
-  b.insert(3, "plakat");
-  b.insert(1, "fsaf");
-  b.remove(2, "fawf");
-  c.insert(3, "erkuplakat");
+  a.insert("fast", 2);
+  b.insert(2, "faff");
+  b.insert(3, "placate");
+  b.insert(1, "Asaf");
+  b.remove(2, "faff");
+  c.insert(3, "eureka");
   std::cout << "A:" << std::endl;
   a.print_table();
   std::cout << "B:" << std::endl;
@@ -33,12 +33,12 @@ int main() {
   std::cout << "Table A is empty: " << a.empty() << std::endl;
   std::cout << "Table B is empty: " << b.empty() << std::endl;
   c.insert(6, "1241fa");
-  c.insert(1, "fsaf");
-  c.insert(6, "fafwafafs");
-  c.insert(4, "asfaf12r");
+  c.insert(1, "Asaf");
+  c.insert(6, "fatwas");
+  c.insert(4, "afar12r");
   c.insert(12, "fas124");
-  c.insert(12, "fawffaw");
-  c.insert(3, "faf12fssss");
+  c.insert(12, "faff");
+  c.insert(3, "faf12Assess");
   std::cout << "Table B:" << std::endl;
   b.print_table();
   std::cout << "Table C:" << std::endl;
@@ -58,4 +58,11 @@ int main() {
   c[4] = "asd";
   std::cout << c[4] << std::endl;
   std:: cout << "Table A: " << a;
+  //Testing:operators
+  std::cout << "b == C: " << (b == c) << std::endl;
+  b = c;
+  std::cout << "b == C: " << (b == c) << std::endl;
+  std::cout << "b > c: " << (b > c) << std::endl;
+  std::cout << "b < c: " << (b < c) << std::endl;
+  std::cout << "b <= c or b >= c: " << (b >= c) << " " << (b <= c) << std::endl;
 }
