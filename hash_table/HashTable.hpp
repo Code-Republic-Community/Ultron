@@ -39,6 +39,15 @@ HashTable<K, T>::HashTable(const HashTable &object) {
 }
 
 template<typename K, typename T>
+HashTable<K, T>::HashTable(HashTable &&obj) noexcept{
+  array = obj.array;
+  _count = obj._count();
+  obj.array = nullptr;
+  obj._count = nullptr;
+  obj = nullptr;
+}
+
+template<typename K, typename T>
 HashTable<K, T>::HashTable(std::initializer_list<std::pair<K, T>> init_list) {
   array.resize(init_list.size());
   for (auto it = init_list.begin(); it != init_list.end(); ++it) {
@@ -98,6 +107,27 @@ HashTable<K, T> &HashTable<K, T>::operator=(const HashTable<K, T> &obj) {
     }
   }
   return *this;
+}
+
+template<typename K, typename T>
+HashTable<K, T> &HashTable<K, T>::operator=(HashTable<K, T> &&obj)  noexcept {
+  node* tmp, *tmp1;
+  if(!(this->empty())) {
+    for(int i = 0; i < array.size(); i++) {
+      tmp = array[i];
+      while(tmp != nullptr) {
+        tmp1 = tmp;
+        tmp = tmp->next;
+        delete tmp1;
+        tmp1 = nullptr;
+      }
+    }
+  }
+  array = obj.array;
+  _count = obj._count();
+  obj.array = nullptr;
+  obj._count = nullptr;
+  obj = nullptr;
 }
 
 template<typename K, typename T>
@@ -399,5 +429,3 @@ T& HashTable<K, T>::operator[](K &&key){
   }
   return tmp->value;
 }
-
-
