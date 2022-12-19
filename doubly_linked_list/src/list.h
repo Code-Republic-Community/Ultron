@@ -16,7 +16,7 @@ public:
   template<typename U>
   friend std::ostream &operator<<(std::ostream &out, const List<U> &obj);
   List<T> &operator=(const List<T> &other_list);
-  List<T> &operator=(List<T> &&other_list);
+  List<T> &operator=(List<T> &&other_list) noexcept;
   bool operator!=(const List<T> &obj) const;
   bool operator==(const List<T> &obj) const;
   bool operator>(const List<T> &obj) const;
