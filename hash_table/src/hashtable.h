@@ -1,5 +1,5 @@
-#ifndef UNTITLED_HASHTABLE_H
-#define UNTITLED_HASHTABLE_H
+#ifndef HASHTABLE_H
+#define HASHTABLE_H
 
 #include <vector>
 
@@ -58,6 +58,6 @@ private:
 };
 
 
-#include "HashTable.hpp"
+#include "hashtable.hpp"
 
 #endif // HASHTABLE_H

@@ -1,4 +1,4 @@
-#include "HashTable.h"
+#include "hashtable.h"
 
 template<typename K, typename T>
 HashTable<K, T>::node::node(K init_key, T init_value) {
