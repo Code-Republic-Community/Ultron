@@ -16,7 +16,7 @@ HashTable<K, T>::node::node() {
 
 template<typename K, typename T>
 HashTable<K, T>::HashTable() {
-  array.resize(10);
+  array.resize(5);
 }
 
 template<typename K, typename T>
@@ -27,7 +27,7 @@ HashTable<K, T>::HashTable(int size) {
 template<typename K, typename T>
 HashTable<K, T>::HashTable(const HashTable &object) {
   array.resize(object.array.size());
-  this->_count = object.get_count();
+  this->_count = object._count;
   node* tmp;
   for(int i = 0; i < object.array.size(); i++) {
     tmp = object.array[i];
@@ -245,26 +245,6 @@ void HashTable<K, T>::remove(K key, T value) {
   tmp->next = tmp->next->next;
   delete tmp1;
   _count--;
-}
-
-template<typename K, typename T>
-void HashTable<K, T>::print_table() {
-  if(_count == 0) {
-    std::cout << "Table is empty" << std::endl;
-    return;
-  }
-  node* tmp;
-  std::cout << "Table started: " << std::endl;
-  for(int i = 0; i < array.size(); i++) {
-    std::cout << i << ": ";
-    tmp = array[i];
-    while(tmp != nullptr) {
-      std::cout << tmp->key << ":" << tmp->value << " ";
-      tmp = tmp->next;
-    }
-    std::cout << std::endl;
-  }
-  std::cout << "End of table." << std::endl;
 }
 
 template<typename K, typename T>

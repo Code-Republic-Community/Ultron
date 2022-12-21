@@ -25,6 +25,7 @@ public:
   bool operator<=(const HashTable<K, T> &obj) const; // Checking by size only
   T operator[](const K &key) const;
   T& operator[](K &&key);
+
   [[nodiscard]] int get_count() const { return _count; }
   [[nodiscard]] bool empty() const;
   [[nodiscard]] bool contains(K key) const;
@@ -33,7 +34,6 @@ public:
   void emplace(K key, const T &value);
   void reformat();
   void remove(K key, T value);
-  void print_table();
   int hash_function(K key); // returns index with argument key for current table
   void swap(HashTable<K, T> &obj);
   void merge(const HashTable<K, T> &obj);
@@ -43,14 +43,12 @@ private:
   struct node {
     K key;
     T value;
-    node *next{};
+    node *next;
 
     node();
     node(K init_key, T init_value);
-
-    T get_value() { return value; }
-    K get_key() { return key; }
   }; // NODE ENDED HERE
+
   int _count = 0;
   std::vector<node *> array;
 

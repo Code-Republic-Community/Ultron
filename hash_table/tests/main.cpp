@@ -23,11 +23,11 @@ int main() {
   b.remove(2, "faff");
   c.insert(3, "eureka");
   std::cout << "A:" << std::endl;
-  a.print_table();
+  std::cout << a;;
   std::cout << "B:" << std::endl;
-  b.print_table();
+  std::cout << b;
   std::cout << "C: " << std::endl;
-  c.print_table();
+  std::cout << c;
   c.insert(4, "123412");
   std::cout << "Table C has " << c.get_count() << " elements" << std::endl;
   std::cout << "Table A is empty: " << a.empty() << std::endl;
@@ -40,9 +40,9 @@ int main() {
   c.insert(12, "faff");
   c.insert(3, "faf12Assess");
   std::cout << "Table B:" << std::endl;
-  b.print_table();
+  std::cout << b;
   std::cout << "Table C:" << std::endl;
-  c.print_table();
+  std::cout << c;
   std::cout << "b == C: " << (b == c) << std::endl;
   b = c;
   std::cout << "b == C: " << (b == c) << std::endl;
