@@ -50,7 +50,7 @@ private:
   }; // NODE ENDED HERE
 
   int _count = 0;
-  std::vector<node *> array;
+  std::vector<node *> _array;
 
   void append_to_array(int i, K key, T value);
 };
