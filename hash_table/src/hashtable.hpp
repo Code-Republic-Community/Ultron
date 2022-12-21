@@ -16,21 +16,21 @@ HashTable<K, T>::node::node() {
 
 template<typename K, typename T>
 HashTable<K, T>::HashTable() {
-  array.resize(5);
+  _array.resize(5);
 }
 
 template<typename K, typename T>
 HashTable<K, T>::HashTable(int size) {
-  array.resize(size);
+  _array.resize(size);
 }
 
 template<typename K, typename T>
 HashTable<K, T>::HashTable(const HashTable &object) {
-  array.resize(object.array.size());
+  _array.resize(object._array.size());
   this->_count = object._count;
   node* tmp;
-  for(int i = 0; i < object.array.size(); i++) {
-    tmp = object.array[i];
+  for(int i = 0; i < object._array.size(); i++) {
+    tmp = object._array[i];
     while(tmp != nullptr) {
       this->append_to_array(i, tmp->key, tmp->value);
       tmp = tmp->next;
@@ -40,16 +40,16 @@ HashTable<K, T>::HashTable(const HashTable &object) {
 
 template<typename K, typename T>
 HashTable<K, T>::HashTable(HashTable &&obj) noexcept{
-  array = obj.array;
+  _array = obj.array;
   _count = obj._count();
-  obj.array = nullptr;
+  obj._array = nullptr;
   obj._count = nullptr;
   obj = nullptr;
 }
 
 template<typename K, typename T>
 HashTable<K, T>::HashTable(const std::initializer_list<std::pair<K, T>> &init_list) {
-  array.resize(init_list.size());
+  _array.resize(init_list.size());
   for (auto it = init_list.begin(); it != init_list.end(); ++it) {
     this->insert(it->first, it->second);
   }
@@ -61,8 +61,8 @@ HashTable<K, T>::~HashTable() {
     return;
   }
   node* tmp, *tmp1;
-  for(int i = 0; i < array.size(); i++) {
-    tmp = array[i];
+  for(int i = 0; i < _array.size(); i++) {
+    tmp = _array[i];
     while(tmp != nullptr) {
       tmp1 = tmp;
       tmp = tmp->next;
@@ -76,8 +76,8 @@ template<typename K, typename T>
 HashTable<K, T> &HashTable<K, T>::operator=(const HashTable<K, T> &obj) {
   node* tmp, *tmp1;
   if(!(this->empty())) {
-    for(int i = 0; i < array.size(); i++) {
-      tmp = array[i];
+    for(int i = 0; i < _array.size(); i++) {
+      tmp = _array[i];
       while(tmp != nullptr) {
         tmp1 = tmp;
         tmp = tmp->next;
@@ -86,18 +86,18 @@ HashTable<K, T> &HashTable<K, T>::operator=(const HashTable<K, T> &obj) {
       }
     }
   }
-  array.resize(obj.array.size());
-  for(int i = 0; i < obj.array.size(); i++) {
-    array[i] = nullptr;
+  _array.resize(obj._array.size());
+  for(int i = 0; i < obj._array.size(); i++) {
+    _array[i] = nullptr;
   }
-  for(int i = 0; i < obj.array.size(); i++) {
-    tmp = obj.array[i];
+  for(int i = 0; i < obj._array.size(); i++) {
+    tmp = obj._array[i];
     while(tmp != nullptr) {
-      int index = std::hash<K>()(tmp->key) % array.size();
-      if(array[index] == nullptr) {
-        array[index] = new node(tmp->key, tmp->value);
+      int index = std::hash<K>()(tmp->key) % _array.size();
+      if(_array[index] == nullptr) {
+        _array[index] = new node(tmp->key, tmp->value);
       } else {
-        tmp1 = array[index];
+        tmp1 = _array[index];
         while(tmp1->next != nullptr) {
           tmp1 = tmp1->next;
         }
@@ -113,8 +113,8 @@ template<typename K, typename T>
 HashTable<K, T> &HashTable<K, T>::operator=(HashTable<K, T> &&obj)  noexcept {
   node* tmp, *tmp1;
   if(!(this->empty())) {
-    for(int i = 0; i < array.size(); i++) {
-      tmp = array[i];
+    for(int i = 0; i < _array.size(); i++) {
+      tmp = _array[i];
       while(tmp != nullptr) {
         tmp1 = tmp;
         tmp = tmp->next;
@@ -123,9 +123,9 @@ HashTable<K, T> &HashTable<K, T>::operator=(HashTable<K, T> &&obj)  noexcept {
       }
     }
   }
-  array = obj.array;
+  _array = obj._array;
   _count = obj._count();
-  obj.array = nullptr;
+  obj._array = nullptr;
   obj._count = nullptr;
   obj = nullptr;
 }
@@ -133,13 +133,13 @@ HashTable<K, T> &HashTable<K, T>::operator=(HashTable<K, T> &&obj)  noexcept {
 template<typename K, typename T>
 bool HashTable<K, T>::operator==(const HashTable<K, T> &obj) const {
   node* tmp;
-  if(array.size() != obj.array.size()) {
+  if(_array.size() != obj._array.size()) {
     return false;
   }
-  for(int i = 0; i < obj.array.size(); i++) {
-    tmp = array[i];
+  for(int i = 0; i < obj._array.size(); i++) {
+    tmp = _array[i];
     while(tmp != nullptr) {
-      if (array[i]->value != obj.array[i]->value || array[i]->key != obj.array[i]->key) {
+      if (_array[i]->value != obj._array[i]->value || _array[i]->key != obj._array[i]->key) {
         return false;
       }
       tmp = tmp->next;
@@ -158,7 +158,7 @@ bool HashTable<K, T>::operator!=(const HashTable<K, T> &obj) const {
 
 template<typename K, typename T>
 bool HashTable<K, T>::operator>(const HashTable<K, T> &obj) const {
-  if(array.size() > obj.array.size()) {
+  if(_array.size() > obj._array.size()) {
     return true;
   }
   return false;
@@ -166,7 +166,7 @@ bool HashTable<K, T>::operator>(const HashTable<K, T> &obj) const {
 
 template<typename K, typename T>
 bool HashTable<K, T>::operator>=(const HashTable<K, T> &obj) const {
-  if(array.size() >= obj.array.size()) {
+  if(_array.size() >= obj._array.size()) {
     return true;
   }
   return false;
@@ -174,7 +174,7 @@ bool HashTable<K, T>::operator>=(const HashTable<K, T> &obj) const {
 
 template<typename K, typename T>
 bool HashTable<K, T>::operator<(const HashTable<K, T> &obj) const {
-  if(array.size() < obj.array.size()) {
+  if(_array.size() < obj._array.size()) {
     return true;
   }
   return false;
@@ -182,7 +182,7 @@ bool HashTable<K, T>::operator<(const HashTable<K, T> &obj) const {
 
 template<typename K, typename T>
 bool HashTable<K, T>::operator<=(const HashTable<K, T> &obj) const {
-  if(array.size() <= obj.array.size()) {
+  if(_array.size() <= obj._array.size()) {
     return true;
   }
   return false;
@@ -190,9 +190,9 @@ bool HashTable<K, T>::operator<=(const HashTable<K, T> &obj) const {
 
 template<typename K, typename T>
 void HashTable<K, T>::append_to_array(int i, K key, T value) {
-  node *tmp = array[i];
+  node *tmp = _array[i];
   if (tmp == nullptr) {
-    array[i] = new node(key, value);
+    _array[i] = new node(key, value);
   } else {
     while (tmp->next != nullptr) {
       tmp = tmp->next;
@@ -203,10 +203,10 @@ void HashTable<K, T>::append_to_array(int i, K key, T value) {
 
 template<typename K, typename T>
 void HashTable<K, T>::insert(K key, T value) {
-  int index = std::hash<K>()(key) % array.size();
-  node* tmp = array[index];
+  int index = std::hash<K>()(key) % _array.size();
+  node* tmp = _array[index];
   if(tmp == nullptr) {
-    array[index] = new node(key, value);
+    _array[index] = new node(key, value);
   } else {
     while (tmp->key != key || tmp->next != nullptr) {
       tmp = tmp->next;
@@ -218,20 +218,20 @@ void HashTable<K, T>::insert(K key, T value) {
     }
   }
   _count++;
-  if(_count * 2> array.size()) {
+  if(_count * 2> _array.size()) {
     this->reformat();
   }
 }
 
 template<typename K, typename T>
 void HashTable<K, T>::remove(K key, T value) {
-  int index = std::hash<K>()(key) % array.size();
-  node* tmp = array[index];
+  int index = std::hash<K>()(key) % _array.size();
+  node* tmp = _array[index];
   if(tmp == nullptr) {
     return;
   }
   if(tmp->key == key && tmp->value == value) {
-    array[index] = tmp->next;
+    _array[index] = tmp->next;
     delete tmp;
     return;
   }
@@ -257,8 +257,8 @@ bool HashTable<K, T>::empty() const {
 
 template<typename K, typename T>
 bool HashTable<K, T>::contains(K key) const {
-  int index = std::hash<K>()(key) % array.size();
-  node* tmp = array[index];
+  int index = std::hash<K>()(key) % _array.size();
+  node* tmp = _array[index];
   if(tmp == nullptr) {
     return false;
   }
@@ -267,10 +267,10 @@ bool HashTable<K, T>::contains(K key) const {
 
 template<typename K, typename T>
 void HashTable<K, T>::emplace(K key, const T &value) {
-  int index = std::hash<K>()(key) % array.size();
-  node* tmp = array[index];
+  int index = std::hash<K>()(key) % _array.size();
+  node* tmp = _array[index];
   if(tmp == nullptr) {
-    array[index] = new node(key, value);
+    _array[index] = new node(key, value);
   } else {
     while (tmp->key != key || tmp->next != nullptr) {
       tmp = tmp->next;
@@ -282,7 +282,7 @@ void HashTable<K, T>::emplace(K key, const T &value) {
     }
   }
   _count++;
-  if(_count * 2> array.size()) {
+  if(_count * 2> _array.size()) {
     this->reformat();
   }
 }
@@ -290,10 +290,10 @@ void HashTable<K, T>::emplace(K key, const T &value) {
 template<typename K, typename T>
 void HashTable<K, T>::reformat() {
   std::vector<node *> new_array;
-  new_array.resize(array.size()*2);
+  new_array.resize(_array.size()*2);
   node* tmp, *tmp1;
-  for(int i = 0; i < array.size(); i++) {
-    tmp = array[i];
+  for(int i = 0; i < _array.size(); i++) {
+    tmp = _array[i];
     while(tmp != nullptr) {
       int index = std::hash<K>()(tmp->key) % new_array.size();
       if(new_array[index] == nullptr) {
@@ -308,18 +308,18 @@ void HashTable<K, T>::reformat() {
       tmp = tmp->next;
     }
   }
-  array = new_array;
+  _array = new_array;
 }
 
 template<typename K, typename T>
 int HashTable<K, T>::hash_function(K key) {
-  return std::hash<K>()(key) % this->array.size();
+  return std::hash<K>()(key) % this->_array.size();
 }
 
 template<typename K, typename T>
 T HashTable<K, T>::find(K key) const {
-  int index = std::hash<K>()(key) % this->array.size();
-  node* tmp = array[index];
+  int index = std::hash<K>()(key) % this->_array.size();
+  node* tmp = _array[index];
   while(tmp->key != key) {
     tmp = tmp->next;
   }
@@ -334,9 +334,9 @@ std::ostream &operator<<(std::ostream &out, const HashTable<U, Y> &obj) {
     return out;
   }
   std::cout << "Table started: " << std::endl;
-  for(int i = 0; i < obj.array.size(); i++) {
+  for(int i = 0; i < obj._array.size(); i++) {
     std::cout << i << ": ";
-    tmp = obj.array[i];
+    tmp = obj._array[i];
     while(tmp != nullptr) {
       std::cout << tmp->key << ":" << tmp->value << " ";
       tmp = tmp->next;
@@ -358,11 +358,11 @@ template<typename K, typename T>
 void HashTable<K, T>::merge(const HashTable<K, T> &obj) {
   node* tmp, *tmp1;
   bool flag = false;
-  for(int i = 0; i < obj.array.size(); i++) {
-    tmp = obj.array[i];
+  for(int i = 0; i < obj._array.size(); i++) {
+    tmp = obj._array[i];
     while(tmp != nullptr) {
-      int index = std::hash<K>()(tmp->key) % this->array.size();
-      tmp1 = array[index];
+      int index = std::hash<K>()(tmp->key) % this->_array.size();
+      tmp1 = _array[index];
       while(tmp1 != nullptr) {
         if(tmp1->key == tmp->key) {
           tmp1->value = tmp->value;
@@ -383,8 +383,8 @@ void HashTable<K, T>::merge(const HashTable<K, T> &obj) {
 template<typename K, typename T>
 void HashTable<K, T>::erase() {
   node* tmp, *tmp1;
-  for(int i = 0; i < array.size(); i++) {
-    tmp = array[i];
+  for(int i = 0; i < _array.size(); i++) {
+    tmp = _array[i];
     while(tmp != nullptr) {
       tmp1 = tmp;
       tmp = tmp->next;
@@ -402,8 +402,8 @@ T HashTable<K, T>::operator[](const K &key) const {
 
 template<typename K, typename T>
 T& HashTable<K, T>::operator[](K &&key){
-  int index = std::hash<K>()(key) % this->array.size();
-  node* tmp = array[index];
+  int index = std::hash<K>()(key) % this->_array.size();
+  node* tmp = _array[index];
   while(tmp->key != key) {
     tmp = tmp->next;
   }
