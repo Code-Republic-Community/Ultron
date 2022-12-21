@@ -13,19 +13,23 @@ public:
   HashTable(const std::initializer_list<std::pair<K, T>> &init_list);
   ~HashTable();
 
+public:
   template<typename U, typename Y>
   friend std::ostream &operator<<(std::ostream &out, const HashTable<U, Y> &obj);
   HashTable<K, T> &operator=(const HashTable<K, T>  &obj);
   HashTable<K, T> &operator=(HashTable<K, T> &&obj) noexcept;
+  T operator[](const K &key) const;
+  T& operator[](K &&key);
+
+public:
   bool operator==(const HashTable<K, T> &obj) const;
   bool operator!=(const HashTable<K, T> &obj) const;
   bool operator>(const HashTable<K, T> &obj) const; // Checking by size only
   bool operator>=(const HashTable<K, T> &obj) const; // Checking by size only
   bool operator<(const HashTable<K, T> &obj) const; // Checking by size only
   bool operator<=(const HashTable<K, T> &obj) const; // Checking by size only
-  T operator[](const K &key) const;
-  T& operator[](K &&key);
 
+public:
   [[nodiscard]] int get_count() const { return _count; }
   [[nodiscard]] bool empty() const;
   [[nodiscard]] bool contains(K key) const;
@@ -40,21 +44,22 @@ public:
   void erase();
 
 private:
-  struct node {
+  void append_to_array(int i, K key, T value);
+
+private:
+  class node {
+public:
     K key;
     T value;
     node *next;
-
+public:
     node();
     node(K init_key, T init_value);
   }; // NODE ENDED HERE
 
   int _count = 0;
   std::vector<node *> _array;
-
-  void append_to_array(int i, K key, T value);
 };
-
 
 #include "hashtable.hpp"
 
