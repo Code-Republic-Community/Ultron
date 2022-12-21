@@ -47,19 +47,19 @@ private:
   void append_to_array(int i, K key, T value);
 
 private:
-  class node {
-public:
+  class Node {
+  public:
     K key;
     T value;
-    node *next;
-public:
-    node();
-    node(K init_key, T init_value);
+    Node *next;
+  public:
+    Node();
+    Node(K init_key, T init_value);
   }; // NODE ENDED HERE
 
 private:
   int _count = 0;
-  std::vector<node *> _array;
+  std::vector<Node *> _array;
 };
 
 #include "hashtable.hpp"
