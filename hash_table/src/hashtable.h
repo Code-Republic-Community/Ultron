@@ -57,6 +57,7 @@ public:
     node(K init_key, T init_value);
   }; // NODE ENDED HERE
 
+private:
   int _count = 0;
   std::vector<node *> _array;
 };
