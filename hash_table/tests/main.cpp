@@ -13,7 +13,7 @@ int main() {
   l.insert("dsa", 2);
   HashTable<int, std::string> b(10);
   HashTable<int, std::string> c(b);
-  HashTable<std::string, std::string> d = {std::make_pair("fast", "f"), std::make_pair("faff", "fluff")};
+  //HashTable<std::string, std::string> d = {std::make_pair("fast", "f"), std::make_pair("faff", "fluff")};
   //Testing::methods
   a.insert("2414", 5);
   a.insert("fast", 2);
@@ -23,7 +23,7 @@ int main() {
   b.remove(2, "faff");
   c.insert(3, "eureka");
   std::cout << "A:" << std::endl;
-  std::cout << a;;
+  std::cout << a;
   std::cout << "B:" << std::endl;
   std::cout << b;
   std::cout << "C: " << std::endl;
@@ -65,4 +65,9 @@ int main() {
   std::cout << "b > c: " << (b > c) << std::endl;
   std::cout << "b < c: " << (b < c) << std::endl;
   std::cout << "b <= c or b >= c: " << (b >= c) << " " << (b <= c) << std::endl;
+  std::cout << (std::hash<float>()(1.244444444) == std::hash<float>()(1.244444445)) << std::endl;
+  HashTable<double, int> floatik(10);
+  floatik.insert(1.22224, 10);
+  floatik.insert(1.22224, 14);
+  std::cout << floatik;
 }
