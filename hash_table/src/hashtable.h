@@ -45,15 +45,19 @@ public:
 
 private:
   void append_to_array(int i, K key, T value);
+  static unsigned long long hash(const std::string& key);
+  static unsigned long long hash(const int &key);
+  static unsigned long long hash(const float &key);
+  static unsigned long long hash(const double &key);
 
 private:
   class Node {
   public:
-    K key;
-    T value;
-    Node *next;
+    K _key;
+    std::size_t _hash;
+    T _value;
+    Node *_next;
   public:
-    Node();
     Node(K init_key, T init_value);
   }; // NODE ENDED HERE
 
