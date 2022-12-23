@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <string>
 
-#include "../src/hashtable.h"
+#include "hashtable.h"
 
 int main() {
   //Testing::constructors
@@ -13,7 +13,7 @@ int main() {
   l.insert("dsa", 2);
   HashTable<int, std::string> b(10);
   HashTable<int, std::string> c(b);
-  //HashTable<std::string, std::string> d = {std::make_pair("fast", "f"), std::make_pair("faff", "fluff")};
+  HashTable<std::string, std::string> d = {std::make_pair("fast", "f"), std::make_pair("faff", "fluff")};
   //Testing::methods
   a.insert("2414", 5);
   a.insert("fast", 2);
