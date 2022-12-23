@@ -6,18 +6,23 @@ struct Hasharator
   static unsigned long long calculate(const U &key);
 };
 
-template<typename U>
+template<typename U> // implementation of hash function for default keys
 unsigned long long Hasharator<U>::calculate(const U &key) {
   return std::hash<U>()(key);
 }
 
+/*
+ * Polynomial rolling hash function for strings:
+ * hash(s) = s[0] + s[1] * p + s[2] * p**2 + ... + s[n-1] * p**(n-1) mod m
+ * main logic is a -> 1, b -> 2, ..., z -> 26
+ */
 template<>
 struct Hasharator<std::string> {
   static unsigned long long calculate(const std::string &key) {
-    const int p = 31;
-    const int m = 1e9 + 9;
-    long long hash_value = 0;
-    long long p_pow = 1;
+    const int p = 53; // P is a prime number good for both upper and lower cases
+    const int m = 1e9 + 9; // Probability of two random string col. if about 1/m
+    long long hash_value = 0; // returning result
+    long long p_pow = 1; 
     for (char c: key) {
       hash_value = (hash_value + (c - 'a' + 1) * p_pow) % m;
       p_pow = (p_pow * p) % m;
@@ -26,8 +31,16 @@ struct Hasharator<std::string> {
   }
 };
 
+template<>
+struct Hasharator<int> {
+  static unsigned long long calculate(int key) {
+   return std::hash<int>()(key);
+  }
+};
+
+
 template<typename K, typename T>
-struct Hasharator<HashTable<K, T>> {
+struct Hasharator<HashTable<K, T>> { // implemenatation of hash for HashTable
   static unsigned long long calculate(const HashTable<K, T> &table) {
     long long hash_value = Hasharator<int>::calculate(table->_count) + Hasharator<K>::calculate(table->_array[0]->key);
     return hash_value;

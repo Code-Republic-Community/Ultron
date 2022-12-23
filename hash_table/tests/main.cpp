@@ -70,4 +70,6 @@ int main() {
   floatik.insert(1.22224, 10);
   floatik.insert(1.22224, 14);
   std::cout << floatik;
+  HashTable<long long, int> long_table(10);
+  long_table.insert(12333333, 1);
 }
