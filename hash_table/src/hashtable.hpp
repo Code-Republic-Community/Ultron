@@ -1,10 +1,44 @@
 #include "hashtable.h"
 
+template<typename U>
+struct Hasharator
+{
+  static unsigned long long calculate(const U &key);
+};
+
+template<typename U>
+unsigned long long Hasharator<U>::calculate(const U &key) {
+  return std::hash<U>()(key);
+}
+
+template<>
+struct Hasharator<std::string> {
+  static unsigned long long calculate(const std::string &key) {
+    const int p = 31;
+    const int m = 1e9 + 9;
+    long long hash_value = 0;
+    long long p_pow = 1;
+    for (char c: key) {
+      hash_value = (hash_value + (c - 'a' + 1) * p_pow) % m;
+      p_pow = (p_pow * p) % m;
+    }
+    return hash_value;
+  }
+};
+
+template<typename K, typename T>
+struct Hasharator<HashTable<K, T>> {
+  static unsigned long long calculate(const HashTable<K, T> &table) {
+    long long hash_value = Hasharator<int>::calculate(table->_count) + Hasharator<K>::calculate(table->_array[0]->key);
+    return hash_value;
+  }
+};
+
 template<typename K, typename T>
 HashTable<K, T>::Node::Node(K init_key, T init_value) {
   _next = nullptr;
   _key = init_key;
-  _hash = hash(init_key);
+  _hash = Hasharator<K>::calculate(init_key);
   _value = init_value;
 }
 
@@ -87,7 +121,7 @@ HashTable<K, T> &HashTable<K, T>::operator=(const HashTable<K, T> &obj) {
   for(int i = 0; i < obj._array.size(); i++) {
     tmp = obj._array[i];
     while(tmp != nullptr) {
-      int index = hash(tmp->_key) % _array.size();
+      int index = Hasharator<K>::calculate(tmp->_key) % _array.size();
       if(_array[index] == nullptr) {
         _array[index] = new Node(tmp->_key, tmp->_value);
       } else {
@@ -122,6 +156,21 @@ HashTable<K, T> &HashTable<K, T>::operator=(HashTable<K, T> &&obj)  noexcept {
   obj._array = nullptr;
   obj._count = nullptr;
   obj = nullptr;
+}
+
+template<typename K, typename T>
+T HashTable<K, T>::operator[](const K &key) const {
+  return this->find(key);
+}
+
+template<typename K, typename T>
+T& HashTable<K, T>::operator[](K &&key){
+  int index = Hasharator<K>::calculate(key) % this->_array.size();
+  Node* tmp = _array[index];
+  while(tmp->_key != key) {
+    tmp = tmp->_next;
+  }
+  return tmp->_value;
 }
 
 template<typename K, typename T>
@@ -197,7 +246,7 @@ void HashTable<K, T>::append_to_array(int i, K key, T value) {
 
 template<typename K, typename T>
 void HashTable<K, T>::insert(K key, T value) {
-  int index = hash(key) % _array.size();
+  int index = Hasharator<K>::calculate(key) % _array.size();
   Node* tmp = _array[index];
   if(tmp == nullptr) {
     _array[index] = new Node(key, value);
@@ -219,7 +268,7 @@ void HashTable<K, T>::insert(K key, T value) {
 
 template<typename K, typename T>
 void HashTable<K, T>::remove(K key, T value) {
-  int index = hash(key) % _array.size();
+  int index = Hasharator<K>::calculate(key) % _array.size();
   Node* tmp = _array[index];
   if(tmp == nullptr) {
     return;
@@ -251,7 +300,7 @@ bool HashTable<K, T>::empty() const {
 
 template<typename K, typename T>
 bool HashTable<K, T>::contains(K key) const {
-  int index = hash(key) % _array.size();
+  int index = Hasharator<K>::calculate(key) % _array.size();
   Node* tmp = _array[index];
   if(tmp == nullptr) {
     return false;
@@ -261,7 +310,7 @@ bool HashTable<K, T>::contains(K key) const {
 
 template<typename K, typename T>
 void HashTable<K, T>::emplace(K key, const T &value) {
-  int index = hash(key) % _array.size();
+  int index = Hasharator<K>::calculate(key) % _array.size();
   Node* tmp = _array[index];
   if(tmp == nullptr) {
     _array[index] = new Node(key, value);
@@ -307,12 +356,12 @@ void HashTable<K, T>::reformat() {
 
 template<typename K, typename T>
 int HashTable<K, T>::hash_function(K key) {
-  return hash(key) % this->_array.size();
+  return Hasharator<K>::calculate(key) % this->_array.size();
 }
 
 template<typename K, typename T>
 T HashTable<K, T>::find(K key) const {
-  int index = hash(key) % this->_array.size();
+  int index = Hasharator<K>::calculate(key) % this->_array.size();
   Node* tmp = _array[index];
   while(tmp->_key != key) {
     tmp = tmp->_next;
@@ -355,7 +404,7 @@ void HashTable<K, T>::merge(const HashTable<K, T> &obj) {
   for(int i = 0; i < obj._array.size(); i++) {
     tmp = obj._array[i];
     while(tmp != nullptr) {
-      int index = hash(tmp->_key) % this->_array.size();
+      int index = Hasharator<K>::calculate(tmp->_key) % this->_array.size();
       tmp1 = _array[index];
       while(tmp1 != nullptr) {
         if(tmp1->_key == tmp->_key) {
@@ -387,47 +436,4 @@ void HashTable<K, T>::erase() {
     }
   }
   _count = 0;
-}
-
-template<typename K, typename T>
-T HashTable<K, T>::operator[](const K &key) const {
-  return this->find(key);
-}
-
-template<typename K, typename T>
-T& HashTable<K, T>::operator[](K &&key){
-  int index = hash(key) % this->_array.size();
-  Node* tmp = _array[index];
-  while(tmp->_key != key) {
-    tmp = tmp->_next;
-  }
-  return tmp->_value;
-}
-
-template<typename K, typename T>
-unsigned long long HashTable<K, T>::hash(const std::string& key) {
-  const int p = 31;
-  const int m = 1e9 + 9;
-  long long hash_value = 0;
-  long long p_pow = 1;
-  for (char c : key) {
-    hash_value = (hash_value + (c - 'a' + 1) * p_pow) % m;
-    p_pow = (p_pow * p) % m;
-  }
-  return hash_value;
-}
-
-template<typename K, typename T>
-unsigned long long HashTable<K, T>::hash(const int &key) {
-  return key;
-}
-
-template<typename K, typename T>
-unsigned long long HashTable<K, T>::hash(const float &key) {
-  return key * 100000;
-}
-
-template<typename K, typename T>
-unsigned long long HashTable<K, T>::hash(const double &key) {
-  return std::hash<K>()(key);
 }
