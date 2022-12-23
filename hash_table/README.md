@@ -66,9 +66,9 @@ merge(HashTable obj)
 
 
 # Hashing algorithms
-String: https://cp-algorithms.com/string/string-hashing.html
-Other types: std::hash<type> ()(key);
-Own classes/structures: you must write own hashing fuction
+- String: https://cp-algorithms.com/string/string-hashing.html
+- Other types: std::hash<type> ()(key);
+- Own classes/structures: you must write own hashing fuction
 
 ## Operators
 ==   - return true if all elements are equal
