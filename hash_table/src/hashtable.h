@@ -9,17 +9,17 @@ public:
   HashTable();
   explicit HashTable(int size);
   HashTable(const HashTable &obj);
-  HashTable(HashTable &&obj) noexcept ;
+  HashTable(HashTable &&obj) noexcept;
   HashTable(const std::initializer_list<std::pair<K, T>> &init_list);
   ~HashTable();
 
 public:
   template<typename U, typename Y>
   friend std::ostream &operator<<(std::ostream &out, const HashTable<U, Y> &obj);
-  HashTable<K, T> &operator=(const HashTable<K, T>  &obj);
+  HashTable<K, T> &operator=(const HashTable<K, T> &obj);
   HashTable<K, T> &operator=(HashTable<K, T> &&obj) noexcept;
   T operator[](const K &key) const;
-  T& operator[](K &&key);
+  T &operator[](K &&key);
 
 public:
   bool operator==(const HashTable<K, T> &obj) const;
@@ -45,10 +45,6 @@ public:
 
 private:
   void append_to_array(int i, K key, T value);
-  static unsigned long long hash(const std::string& key);
-  static unsigned long long hash(const int &key);
-  static unsigned long long hash(const float &key);
-  static unsigned long long hash(const double &key);
 
 private:
   class Node {
@@ -67,5 +63,6 @@ private:
 };
 
 #include "hashtable.hpp"
+
 
 #endif // HASHTABLE_H
