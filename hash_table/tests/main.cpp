@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <string>
 
-#include "hashtable.h"
+#include "../src/hashtable.h"
 
 int main() {
   //Testing::constructors
