@@ -49,13 +49,13 @@ private:
 private:
   class Node {
   public:
+    Node(K init_key, T init_value);
+  public:
     K _key;
     std::size_t _hash;
     T _value;
     Node *_next;
-  public:
-    Node(K init_key, T init_value);
-  }; // NODE ENDED HERE
+  }; // Node
 
 private:
   int _count = 0;
@@ -63,6 +63,5 @@ private:
 };
 
 #include "hashtable.hpp"
-
 
 #endif // HASHTABLE_H
