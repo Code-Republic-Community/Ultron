@@ -83,9 +83,6 @@ template<typename K, typename T>
 HashTable<K, T>::HashTable(HashTable &&obj) noexcept{
   _array = obj.array;
   _count = obj._count();
-  obj._array = nullptr;
-  obj._count = nullptr;
-  obj = nullptr;
 }
 
 template<typename K, typename T>
@@ -195,7 +192,8 @@ bool HashTable<K, T>::operator==(const HashTable<K, T> &obj) const {
   for(int i = 0; i < obj._array.size(); i++) {
     tmp = _array[i];
     while(tmp != nullptr) {
-      if (_array[i]->_value != obj._array[i]->_value || _array[i]->_key != obj._array[i]->_key) {
+      if (_array[i]->_value != obj._array[i]->_value 
+                                   || _array[i]->_key != obj._array[i]->_key) {
         return false;
       }
       tmp = tmp->_next;
@@ -269,7 +267,7 @@ void HashTable<K, T>::insert(K key, T value) {
     }
     if(tmp->_key == key) {
       tmp->_value = value;
-    } else if(tmp->_next == nullptr) {
+    } else if(tmp-> _next == nullptr) {
       tmp->_next = new Node(key, value);
     }
   }
